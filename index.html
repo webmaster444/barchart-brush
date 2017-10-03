@@ -26,6 +26,9 @@ rect.pane {
   pointer-events: all;
 }
 
+.g_wrapper{
+  clip-path:url(#clip);
+}
 </style>
 <body>
 <!-- <script src="../d3.v3.js"></script> -->
@@ -89,15 +92,19 @@ var rectTransform2 = function(d) {
     };
 d3.json("data/testdata2.json", function(error, jsondata) {
 	data = type(jsondata);
-  	x.domain(d3.extent(data.map(function(d) { return d.date; })));
- 	y.domain([0, d3.max(data.map(function(d) { return d.totalrev; }))]);
+  var endDate = d3.max(data.map(function(d){return getNextDay(d.date)}));
+  var startDate = d3.min(data.map(function(d){return d.date}));
+
+  	x.domain([startDate,endDate]);
+    // x.domain(d3.extent(data.map(function(d){return d.date})))
+ 	  y.domain([0, d3.max(data.map(function(d) { return d.totalrev; }))]);
   	x2.domain(x.domain());
   	y2.domain(y.domain());  	
   	
   	// Set up zoom behavior
   	zoom.x(x);
-  	
-      var g_containers = focus.selectAll(".chart")
+  	var g_wrapper = focus.append('g').attr('class','g_wrapper');
+      var g_containers = g_wrapper.selectAll(".chart")
         .data(data).enter()
         .append('g')
         .attr('class', 'g_containers')
@@ -133,7 +140,11 @@ d3.json("data/testdata2.json", function(error, jsondata) {
     g_containers1.append('rect')
       .attr('x',0)
       .attr('y',0)
-      .attr('width',1)
+      .attr('width',function(d){
+        var tmr = new Date(d.date);
+        tmr.setDate(d.date.getDate()+1);
+        return x(tmr) - x(d.date);  
+      })
       .attr('height',function(d){
         return height2 - y2(d.totalrev);
       });
@@ -231,4 +242,9 @@ function drawChart(data){
   //     .attr("height", height2 + 7);
 }
 
+function getNextDay(day){
+  var tmr = new Date(day);
+  tmr.setDate(day.getDate()+1);
+  return tmr;
+}
 </script>
