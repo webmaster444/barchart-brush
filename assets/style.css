@@ -1,0 +1,64 @@
+svg {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+  clip-path: url(#clip);
+}
+
+rect.pane {
+  cursor: move;
+  fill: none;
+  pointer-events: all;
+}
+
+.g_wrapper{
+  clip-path:url(#clip);
+}
+
+#totalrev_chart_wrapper svg{
+  width: 70%;  
+}
+
+#eventlength_chart_wrapper svg,#projectid_chart_wrapper svg{
+  width: 80%;
+}
+
+#totalrev_chart_wrapper{
+  width: 100%;
+  text-align: center;
+}
+#eventlength_chart_wrapper text,#projectid_chart_wrapper text{
+  font-size: 20px;
+}
+#eventlength_chart_wrapper,#projectid_chart_wrapper{
+  width: 50%;
+  float: left;  
+}
+#eventlength_chart_wrapper{
+  text-align: right;
+}
+#projectid_chart_wrapper{
+  text-align: left;
+}
+#xaxis .domain {
+  fill:none;
+  stroke:#000;
+}
+#xaxis text, #yaxis text {
+  font-size: 12px;
+}
+
+rect{
+  fill:#5f89ad;
+}
