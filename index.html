@@ -165,6 +165,9 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     enDate = new Date(dateRange[1]).getTime();
     var updatedData = dataByProgramId(jsondata,beDate,enDate);
     updateProjectIdChart(updatedData);
+
+    updatedData = dataByEventLength(jsondata,beDate,enDate);
+    updateEventLengthChart(updatedData);
   }
 
   function drawChart(data){
@@ -217,11 +220,17 @@ function dataByProgramId(data,beDate,enDate){
   });
   return expensesByName;
 }
-function dataByEventLength(data){
+function dataByEventLength(data,beDate,enDate){
   var expensesByName = d3.nest().key(function(d){
     return d.totaldaysold;
   }).rollup(function(v){
-    return d3.sum(v, function(d){return d.totalrev}).toFixed(2);
+    return d3.sum(v, function(d){      
+      cuDate = new Date(d.date).getTime();
+      if((cuDate >=beDate)&&(cuDate <=enDate))
+        return d.totalrev;
+      if(beDate==undefined && enDate==undefined)
+        return d.totalrev;
+    }).toFixed(2);
   }).entries(data).map(function(group){        
     return {
       totaldaysold:group.key,
@@ -270,7 +279,7 @@ function drawEventLengthChart(data){
 
   var width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
-
+  
   var svg = d3.select("#eventlength_chart_wrapper").append("svg")
       .attr('viewBox','0 0 960 500')
       .append("g")
@@ -306,6 +315,7 @@ function drawEventLengthChart(data){
 
   //append rects
   bars.append("rect")
+      .transition()
       .attr("class", "bar")
       .attr("y", function (d) {
           return y(d.totaldaysold);
@@ -320,6 +330,79 @@ function drawEventLengthChart(data){
   bars.append("text")
       .attr("class", "label")
       //y position of the label is halfway down the bar
+      .attr("y", function (d) {
+          return y(d.totaldaysold) + y.rangeBand() / 2 + 4;
+      })
+      //x position is 3 pixels to the right of the bar
+      .attr("x", function (d) {
+          return x(d.totalrev) + 3;
+      })
+      .text(function (d) {
+          return d.totalrev;
+      });
+}
+
+function updateEventLengthChart(data){  
+  data = reformatData(data);
+  //sort bars based on value
+  data = data.sort(function (a, b) {
+      return d3.ascending(a.totalrev, b.totalrev);
+  })
+
+  //set up svg using margin conventions - we'll need plenty of room on the left for labels
+  var margin = {
+      top: 15,
+      right: 120,
+      bottom: 15,
+      left: 60
+  };
+
+  var width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+  var svg = d3.select("#eventlength_chart_wrapper svg");
+
+  var x = d3.scale.linear()
+      .range([0, width])
+      .domain([0, d3.max(data, function (d) {
+          return d.totalrev;
+      })]);
+
+  var y = d3.scale.ordinal()
+      .rangeRoundBands([height, 0], .1)
+      .domain(data.map(function (d) {
+          return d.totaldaysold;
+      }));
+
+  //make y axis to show bar names
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      //no tick marks
+      .tickSize(0)
+      .orient("left");
+
+  var gy = svg.select("#eventlength_chart_wrapper g.y.axis")      
+      .call(yAxis)
+
+  var bars = svg.selectAll(".bar")
+      .data(data)      
+
+  //append rects
+  bars.transition()      
+      .attr("y", function (d) {
+          return y(d.totaldaysold);
+      })
+      .attr("height", y.rangeBand())
+      .attr("x", 0)
+      .attr("width", function (d) {
+          return x(d.totalrev);
+      });
+
+  //add a value label to the right of each bar
+  var labels = svg.selectAll(".label")
+    .data(data);
+
+  labels            
       .attr("y", function (d) {
           return y(d.totaldaysold) + y.rangeBand() / 2 + 4;
       })
@@ -420,11 +503,11 @@ function projectIdChart(data){
       right: 100,
       bottom: 15,
       left: 60
-  };
+      };
 
   var width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
-      
+
     var svg = d3.select("#projectid_chart_wrapper svg");
     //set up svg using margin conventions - we'll need plenty of room on the left for labels
     var x = d3.scale.linear()
