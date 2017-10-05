@@ -47,13 +47,17 @@ svg{
 #projectid_chart_wrapper{
   text-align: left;
 }
-  #xaxis .domain {
-    fill:none;
-    stroke:#000;
-  }
-  #xaxis text, #yaxis text {
-    font-size: 12px;
-  }
+#xaxis .domain {
+  fill:none;
+  stroke:#000;
+}
+#xaxis text, #yaxis text {
+  font-size: 12px;
+}
+
+rect{
+  fill:#5f89ad;
+}
 </style>
 <body>
 <div id="totalrev_chart_wrapper"></div>
@@ -193,8 +197,13 @@ d3.json("data/testdatawithoutnull.json", function(error, jsondata) {
       .attr("height", height2 + 7);
 
       //Draw Event Length Chart 
-  drawEventLengthChart(data1);
-  projectIdChart(data1);
+  var data2 = dataByEventLength(jsondata);
+  data2 = reformatData(data2);
+  drawEventLengthChart(data2);
+
+  var data3 = dataByProgramId(jsondata);
+  data3 = reformatData(data3);
+  projectIdChart(data3);
 });
 
 function brushed() {
@@ -216,7 +225,33 @@ function dataByDate(data){
       totalrev:group.values
     }
   });
+  return expensesByName;
+}
 
+function dataByProgramId(data){
+  var expensesByName = d3.nest().key(function(d){
+    return d.program_id;
+  }).rollup(function(v){
+    return d3.sum(v, function(d){return d.totalrev})
+  }).entries(data).map(function(group){        
+    return {
+      program_id:group.key,
+      totalrev:group.values
+    }
+  });
+  return expensesByName;
+}
+function dataByEventLength(data){
+  var expensesByName = d3.nest().key(function(d){
+    return d.totaldaysold;
+  }).rollup(function(v){
+    return d3.sum(v, function(d){return d.totalrev})
+  }).entries(data).map(function(group){        
+    return {
+      totaldaysold:group.key,
+      totalrev:group.values
+    }
+  });
   return expensesByName;
 }
 function draw() {
@@ -269,7 +304,7 @@ function drawEventLengthChart(data){
   //set up svg using margin conventions - we'll need plenty of room on the left for labels
   var margin = {
       top: 15,
-      right: 25,
+      right: 35,
       bottom: 15,
       left: 60
   };
