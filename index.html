@@ -74,8 +74,7 @@ var brush = d3.svg.brush()
     .on("brush", brushed);
 
 var svg = d3.select("#totalrev_chart_wrapper").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom);
+  .attr('viewBox','0 0 '+width + ' '+ height);
 
 svg.append("defs").append("clipPath")
     .attr("id", "clip")
@@ -249,8 +248,7 @@ function drawEventLengthChart(data){
       height = 500 - margin.top - margin.bottom;
 
   var svg = d3.select("#eventlength_chart_wrapper").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr('viewBox','0 0 '+width + ' '+ height)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -328,8 +326,7 @@ function projectIdChart(data){
       height = 500 - margin.top - margin.bottom;
 
   var svg = d3.select("#projectid_chart_wrapper").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr('viewBox','0 0 '+width + ' '+ height)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
