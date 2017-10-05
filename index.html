@@ -247,6 +247,7 @@ function draw() {
   
   svg.select(".brush").call(brush);
   drawChart(data);  
+  refreshSubCharts(x.domain());
 }
 
 function reformatData(d) {    
