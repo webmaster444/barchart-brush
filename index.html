@@ -29,12 +29,23 @@ rect.pane {
 .g_wrapper{
   clip-path:url(#clip);
 }
+
+svg{
+  width: 60%;  
+}
 #totalrev_chart_wrapper{
   width: 100%;
+  text-align: center;
 }
 #eventlength_chart_wrapper,#projectid_chart_wrapper{
   width: 50%;
-  float: left;
+  float: left;  
+}
+#eventlength_chart_wrapper{
+  text-align: right;
+}
+#projectid_chart_wrapper{
+  text-align: left;
 }
   #xaxis .domain {
     fill:none;
@@ -73,8 +84,9 @@ var brush = d3.svg.brush()
     .x(x2)
     .on("brush", brushed);
 
+var totalheight = height + height2;
 var svg = d3.select("#totalrev_chart_wrapper").append("svg")
-  .attr('viewBox','0 0 '+width + ' '+ height);
+  .attr('viewBox','0 0 960 500');
 
 svg.append("defs").append("clipPath")
     .attr("id", "clip")
@@ -107,7 +119,11 @@ var rectTransform2 = function(d) {
     return "translate(" + x2(d.date) + "," + y2(d.totalrev) + ")";
     };
 d3.json("data/testdatawithoutnull.json", function(error, jsondata) {
-	data = type(jsondata);
+  
+	// data = reformatData(jsondata);
+  data = dataByDate(jsondata);  
+  data = reformatData(data);
+  data1 = reformatData(jsondata);
   var endDate = d3.max(data.map(function(d){return getNextDay(d.date)}));
   var startDate = d3.min(data.map(function(d){return d.date}));
   	// x.domain([startDate,endDate]);
@@ -177,8 +193,8 @@ d3.json("data/testdatawithoutnull.json", function(error, jsondata) {
       .attr("height", height2 + 7);
 
       //Draw Event Length Chart 
-  drawEventLengthChart(data);
-  projectIdChart(data);
+  drawEventLengthChart(data1);
+  projectIdChart(data1);
 });
 
 function brushed() {
@@ -189,6 +205,20 @@ function brushed() {
   zoom.x(x);
 }
 
+function dataByDate(data){
+  var expensesByName = d3.nest().key(function(d){
+    return d.date;
+  }).rollup(function(v){
+    return d3.sum(v, function(d){return d.totalrev})
+  }).entries(data).map(function(group){        
+    return {
+      date:group.key,
+      totalrev:group.values
+    }
+  });
+
+  return expensesByName;
+}
 function draw() {
   // redraw function  
   focus.select(".x.axis").call(xAxis);
@@ -199,7 +229,7 @@ function draw() {
   drawChart(data); 	
 }
 
-function type(d) {		
+function reformatData(d) {		
   	d.forEach(function(tmp_data){
   		tmp_data.date = new Date(tmp_data.date * 1000);
   		tmp_data.totalrev = parseFloat(tmp_data.totalrev);
@@ -248,7 +278,7 @@ function drawEventLengthChart(data){
       height = 500 - margin.top - margin.bottom;
 
   var svg = d3.select("#eventlength_chart_wrapper").append("svg")
-      .attr('viewBox','0 0 '+width + ' '+ height)
+      .attr('viewBox','0 0 960 500')
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -326,7 +356,7 @@ function projectIdChart(data){
       height = 500 - margin.top - margin.bottom;
 
   var svg = d3.select("#projectid_chart_wrapper").append("svg")
-      .attr('viewBox','0 0 '+width + ' '+ height)
+      .attr('viewBox','0 0 960 500')
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
