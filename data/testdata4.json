@@ -1,0 +1,1109 @@
+[
+  {
+    "date": "1415606400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "0",
+    "show_id": "1",
+    "totalrev": "974.2499980926514",
+    "revperc": 0.1291011220706
+  },
+  {
+    "date": "1415606400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "1",
+    "show_id": "1",
+    "totalrev": "687.7599945068359",
+    "revperc": 0.091137374575249
+  },
+  {
+    "date": "1415606400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "2",
+    "show_id": "1",
+    "totalrev": "1180.5000095367432",
+    "revperc": 0.15643200013746
+  },
+  {
+    "date": "1415606400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "3",
+    "show_id": "1",
+    "totalrev": "688.9799976348877",
+    "revperc": 0.091299041265595
+  },
+  {
+    "date": "1415606400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "4",
+    "show_id": "1",
+    "totalrev": "1180.4100036621094",
+    "revperc": 0.15642007315832
+  },
+  {
+    "date": "1415606400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "5",
+    "show_id": "1",
+    "totalrev": "854.9499969482422",
+    "revperc": 0.11329228035552
+  },
+  {
+    "date": "1415606400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "6",
+    "show_id": "1",
+    "totalrev": "202.4000015258789",
+    "revperc": 0.026820700390289
+  },
+  {
+    "date": "1415606400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "7",
+    "show_id": "1",
+    "totalrev": "710.5600032806396",
+    "revperc": 0.094158679909281
+  },
+  {
+    "date": "1415606400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "8",
+    "show_id": "1",
+    "totalrev": "434.3999938964844",
+    "revperc": 0.05756379445655
+  },
+  {
+    "date": "1415606400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "9",
+    "show_id": "1",
+    "totalrev": "251.8000030517578",
+    "revperc": 0.033366859630491
+  },
+  {
+    "date": "1415606400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "10",
+    "show_id": "1",
+    "totalrev": "380.3999938964844",
+    "revperc": 0.050408074050637
+  },
+  {
+    "date": "1417420800",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "0",
+    "show_id": "2",
+    "totalrev": "125",
+    "revperc": 0.016651502698379
+  },
+  {
+    "date": "1417420800",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "1",
+    "show_id": "2",
+    "totalrev": "870.4600067138672",
+    "revperc": 0.11595573720501
+  },
+  {
+    "date": "1417420800",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "2",
+    "show_id": "2",
+    "totalrev": "806.1299934387207",
+    "revperc": 0.10738620608791
+  },
+  {
+    "date": "1417420800",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "3",
+    "show_id": "2",
+    "totalrev": "772.109992980957",
+    "revperc": 0.10285433305254
+  },
+  {
+    "date": "1417420800",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "4",
+    "show_id": "2",
+    "totalrev": "610.7999954223633",
+    "revperc": 0.081365902175562
+  },
+  {
+    "date": "1417420800",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "5",
+    "show_id": "2",
+    "totalrev": "965.2500076293945",
+    "revperc": 0.12858290485321
+  },
+  {
+    "date": "1417420800",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "6",
+    "show_id": "2",
+    "totalrev": "643.6799964904785",
+    "revperc": 0.085745913587629
+  },
+  {
+    "date": "1417420800",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "7",
+    "show_id": "2",
+    "totalrev": "412.8999938964844",
+    "revperc": 0.055003242900223
+  },
+  {
+    "date": "1417420800",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "8",
+    "show_id": "2",
+    "totalrev": "828.4900074005127",
+    "revperc": 0.11036482875048
+  },
+  {
+    "date": "1417420800",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "9",
+    "show_id": "2",
+    "totalrev": "1166.6100120544434",
+    "revperc": 0.15540647810944
+  },
+  {
+    "date": "1417420800",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "10",
+    "show_id": "2",
+    "totalrev": "305.3999938964844",
+    "revperc": 0.040682950579617
+  },
+  {
+    "date": "1419840000",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "0",
+    "show_id": "3",
+    "totalrev": "471",
+    "revperc": 0.077117034461393
+  },
+  {
+    "date": "1419840000",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "1",
+    "show_id": "3",
+    "totalrev": "429.70000076293945",
+    "revperc": 0.070354967657954
+  },
+  {
+    "date": "1419840000",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "2",
+    "show_id": "3",
+    "totalrev": "367.20000076293945",
+    "revperc": 0.060121815526665
+  },
+  {
+    "date": "1419840000",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "3",
+    "show_id": "3",
+    "totalrev": "638",
+    "revperc": 0.1044600169562
+  },
+  {
+    "date": "1419840000",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "4",
+    "show_id": "3",
+    "totalrev": "426.79999923706055",
+    "revperc": 0.069880149149229
+  },
+  {
+    "date": "1419840000",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "5",
+    "show_id": "3",
+    "totalrev": "552.2000064849854",
+    "revperc": 0.090411946772153
+  },
+  {
+    "date": "1419840000",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "6",
+    "show_id": "3",
+    "totalrev": "503.57000160217285",
+    "revperc": 0.082449734962375
+  },
+  {
+    "date": "1419840000",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "7",
+    "show_id": "3",
+    "totalrev": "970.9099998474121",
+    "revperc": 0.15896751574765
+  },
+  {
+    "date": "1419840000",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "8",
+    "show_id": "3",
+    "totalrev": "932.0699939727783",
+    "revperc": 0.15260822472533
+  },
+  {
+    "date": "1419840000",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "9",
+    "show_id": "3",
+    "totalrev": "402.39999771118164",
+    "revperc": 0.065885126307341
+  },
+  {
+    "date": "1419840000",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "10",
+    "show_id": "3",
+    "totalrev": "413.75000381469727",
+    "revperc": 0.067743467733714
+  },
+  {
+    "date": "1422248400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "0",
+    "show_id": "4",
+    "totalrev": "1100.0499954223633",
+    "revperc": 0.17487314325252
+  },
+  {
+    "date": "1422248400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "1",
+    "show_id": "4",
+    "totalrev": "859.3499946594238",
+    "revperc": 0.13660945897503
+  },
+  {
+    "date": "1422248400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "2",
+    "show_id": "4",
+    "totalrev": "302.5",
+    "revperc": 0.048087928779617
+  },
+  {
+    "date": "1422248400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "3",
+    "show_id": "4",
+    "totalrev": "705.8699951171875",
+    "revperc": 0.11221099521608
+  },
+  {
+    "date": "1422248400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "4",
+    "show_id": "4",
+    "totalrev": "371.5199966430664",
+    "revperc": 0.059059924425704
+  },
+  {
+    "date": "1422248400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "5",
+    "show_id": "4",
+    "totalrev": "293.5",
+    "revperc": 0.046657213543199
+  },
+  {
+    "date": "1422248400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "6",
+    "show_id": "4",
+    "totalrev": "125",
+    "revperc": 0.019871044950255
+  },
+  {
+    "date": "1422248400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "7",
+    "show_id": "4",
+    "totalrev": "1045.9599962234497",
+    "revperc": 0.166274544809
+  },
+  {
+    "date": "1422248400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "8",
+    "show_id": "4",
+    "totalrev": "331",
+    "revperc": 0.052618527028275
+  },
+  {
+    "date": "1422248400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "9",
+    "show_id": "4",
+    "totalrev": "201.20000076293945",
+    "revperc": 0.031984434073214
+  },
+  {
+    "date": "1422248400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "10",
+    "show_id": "4",
+    "totalrev": "954.6099948883057",
+    "revperc": 0.15175278494711
+  },
+  {
+    "date": "1424062800",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "0",
+    "show_id": "5",
+    "totalrev": "250",
+    "revperc": 0.040329670850074
+  },
+  {
+    "date": "1424062800",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "1",
+    "show_id": "5",
+    "totalrev": "507.0200004577637",
+    "revperc": 0.081791798931464
+  },
+  {
+    "date": "1424062800",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "2",
+    "show_id": "5",
+    "totalrev": "803.5500011444092",
+    "revperc": 0.12962762823092
+  },
+  {
+    "date": "1424062800",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "3",
+    "show_id": "5",
+    "totalrev": "1007.7799949645996",
+    "revperc": 0.16257374194485
+  },
+  {
+    "date": "1424062800",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "4",
+    "show_id": "5",
+    "totalrev": "1194.6900024414062",
+    "revperc": 0.19272581826534
+  },
+  {
+    "date": "1424062800",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "5",
+    "show_id": "5",
+    "totalrev": "931.9699993133545",
+    "revperc": 0.1503441732578
+  },
+  {
+    "date": "1424062800",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "6",
+    "show_id": "5",
+    "totalrev": "25",
+    "revperc": 0.0040329670850074
+  },
+  {
+    "date": "1424062800",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "7",
+    "show_id": "5",
+    "totalrev": "354.8000030517578",
+    "revperc": 0.05723586936273
+  },
+  {
+    "date": "1424062800",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "8",
+    "show_id": "5",
+    "totalrev": "657.0999965667725",
+    "revperc": 0.10600250630849
+  },
+  {
+    "date": "1424062800",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "9",
+    "show_id": "5",
+    "totalrev": "182.70000076293945",
+    "revperc": 0.02947292358031
+  },
+  {
+    "date": "1424062800",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "10",
+    "show_id": "5",
+    "totalrev": "284.3000030517578",
+    "revperc": 0.045862902183009
+  },
+  {
+    "date": "1425283200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "0",
+    "show_id": "6",
+    "totalrev": "1263.5200004577637",
+    "revperc": 0.14419234153251
+  },
+  {
+    "date": "1425283200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "1",
+    "show_id": "6",
+    "totalrev": "769.7999877929688",
+    "revperc": 0.0878492328664
+  },
+  {
+    "date": "1425283200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "2",
+    "show_id": "6",
+    "totalrev": "770.830005645752",
+    "revperc": 0.0879667780465
+  },
+  {
+    "date": "1425283200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "3",
+    "show_id": "6",
+    "totalrev": "1262.659999847412",
+    "revperc": 0.14409419864464
+  },
+  {
+    "date": "1425283200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "4",
+    "show_id": "6",
+    "totalrev": "521.7000007629395",
+    "revperc": 0.0595361724866
+  },
+  {
+    "date": "1425283200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "5",
+    "show_id": "6",
+    "totalrev": "968.430009841919",
+    "revperc": 0.11051680280397
+  },
+  {
+    "date": "1425283200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "6",
+    "show_id": "6",
+    "totalrev": "829.1100063323975",
+    "revperc": 0.094617665852375
+  },
+  {
+    "date": "1425283200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "7",
+    "show_id": "6",
+    "totalrev": "582.129997253418",
+    "revperc": 0.066432416859152
+  },
+  {
+    "date": "1425283200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "8",
+    "show_id": "6",
+    "totalrev": "537.790002822876",
+    "revperc": 0.061372356378778
+  },
+  {
+    "date": "1425283200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "9",
+    "show_id": "6",
+    "totalrev": "304.1999969482422",
+    "revperc": 0.034715168606954
+  },
+  {
+    "date": "1425283200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "10",
+    "show_id": "6",
+    "totalrev": "952.5700035095215",
+    "revperc": 0.10870686592211
+  },
+  {
+    "date": "1426478400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "0",
+    "show_id": "7",
+    "totalrev": "532.3999977111816",
+    "revperc": 0.099881245126997
+  },
+  {
+    "date": "1426478400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "1",
+    "show_id": "7",
+    "totalrev": "377.3000068664551",
+    "revperc": 0.070783611258935
+  },
+  {
+    "date": "1426478400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "2",
+    "show_id": "7",
+    "totalrev": "445.1999969482422",
+    "revperc": 0.083522032713923
+  },
+  {
+    "date": "1426478400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "3",
+    "show_id": "7",
+    "totalrev": "545.2999992370605",
+    "revperc": 0.1023013582376
+  },
+  {
+    "date": "1426478400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "4",
+    "show_id": "7",
+    "totalrev": "125.60000038146973",
+    "revperc": 0.023563269120933
+  },
+  {
+    "date": "1426478400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "5",
+    "show_id": "7",
+    "totalrev": "584.4000015258789",
+    "revperc": 0.10963673939813
+  },
+  {
+    "date": "1426478400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "6",
+    "show_id": "7",
+    "totalrev": "842.5700035095215",
+    "revperc": 0.15807088921673
+  },
+  {
+    "date": "1426478400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "7",
+    "show_id": "7",
+    "totalrev": "493.8999938964844",
+    "revperc": 0.092658427067384
+  },
+  {
+    "date": "1426478400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "8",
+    "show_id": "7",
+    "totalrev": "203",
+    "revperc": 0.038083945995394
+  },
+  {
+    "date": "1426478400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "9",
+    "show_id": "7",
+    "totalrev": "200",
+    "revperc": 0.037521129059501
+  },
+  {
+    "date": "1426478400",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "10",
+    "show_id": "7",
+    "totalrev": "980.6600036621094",
+    "revperc": 0.18397735280448
+  },
+  {
+    "date": "1428908400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "0",
+    "show_id": "8",
+    "totalrev": "698.7400074005127",
+    "revperc": 0.13315826484868
+  },
+  {
+    "date": "1428908400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "1",
+    "show_id": "8",
+    "totalrev": "382.6000003814697",
+    "revperc": 0.072911743484439
+  },
+  {
+    "date": "1428908400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "2",
+    "show_id": "8",
+    "totalrev": "702",
+    "revperc": 0.13377951875338
+  },
+  {
+    "date": "1428908400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "3",
+    "show_id": "8",
+    "totalrev": "526.5000019073486",
+    "revperc": 0.10033463942852
+  },
+  {
+    "date": "1428908400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "4",
+    "show_id": "8",
+    "totalrev": "125",
+    "revperc": 0.023821139379163
+  },
+  {
+    "date": "1428908400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "5",
+    "show_id": "8",
+    "totalrev": "774.6499977111816",
+    "revperc": 0.14762436452437
+  },
+  {
+    "date": "1428908400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "6",
+    "show_id": "8",
+    "totalrev": "600",
+    "revperc": 0.11434146901998
+  },
+  {
+    "date": "1428908400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "7",
+    "show_id": "8",
+    "totalrev": "483.9000015258789",
+    "revperc": 0.092216395055402
+  },
+  {
+    "date": "1428908400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "8",
+    "show_id": "8",
+    "totalrev": "533.2500038146973",
+    "revperc": 0.10162098131847
+  },
+  {
+    "date": "1428908400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "9",
+    "show_id": "8",
+    "totalrev": "295.8000030517578",
+    "revperc": 0.056370344808423
+  },
+  {
+    "date": "1428908400",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "10",
+    "show_id": "8",
+    "totalrev": "125",
+    "revperc": 0.023821139379163
+  },
+  {
+    "date": "1430107200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "0",
+    "show_id": "9",
+    "totalrev": "216.70000076293945",
+    "revperc": 0.033026740019105
+  },
+  {
+    "date": "1430107200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "1",
+    "show_id": "9",
+    "totalrev": "483.10000228881836",
+    "revperc": 0.07362814085209
+  },
+  {
+    "date": "1430107200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "2",
+    "show_id": "9",
+    "totalrev": "515.2999973297119",
+    "revperc": 0.078535666745435
+  },
+  {
+    "date": "1430107200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "3",
+    "show_id": "9",
+    "totalrev": "404.8000030517578",
+    "revperc": 0.061694621197296
+  },
+  {
+    "date": "1430107200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "4",
+    "show_id": "9",
+    "totalrev": "363.3999938964844",
+    "revperc": 0.055384942681625
+  },
+  {
+    "date": "1430107200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "5",
+    "show_id": "9",
+    "totalrev": "1398.7999954223633",
+    "revperc": 0.21318783398657
+  },
+  {
+    "date": "1430107200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "6",
+    "show_id": "9",
+    "totalrev": "799.3199996948242",
+    "revperc": 0.12182249067397
+  },
+  {
+    "date": "1430107200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "7",
+    "show_id": "9",
+    "totalrev": "308.70000076293945",
+    "revperc": 0.047048244730965
+  },
+  {
+    "date": "1430107200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "8",
+    "show_id": "9",
+    "totalrev": "1106.4300079345703",
+    "revperc": 0.1686284083652
+  },
+  {
+    "date": "1430107200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "9",
+    "show_id": "9",
+    "totalrev": "558.8000030517578",
+    "revperc": 0.08516540082367
+  },
+  {
+    "date": "1430107200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "10",
+    "show_id": "9",
+    "totalrev": "406",
+    "revperc": 0.061877509924078
+  },
+  {
+    "date": "1432537200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "0",
+    "show_id": "10",
+    "totalrev": "1008.5600051879883",
+    "revperc": 0.15636686201638
+  },
+  {
+    "date": "1432537200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "1",
+    "show_id": "10",
+    "totalrev": "804.1599960327148",
+    "revperc": 0.12467674158396
+  },
+  {
+    "date": "1432537200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "2",
+    "show_id": "10",
+    "totalrev": "326.8000030517578",
+    "revperc": 0.050666981360837
+  },
+  {
+    "date": "1432537200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "3",
+    "show_id": "10",
+    "totalrev": "300.5",
+    "revperc": 0.046589436220171
+  },
+  {
+    "date": "1432537200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "4",
+    "show_id": "10",
+    "totalrev": "993.53000831604",
+    "revperc": 0.15403661549173
+  },
+  {
+    "date": "1432537200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "5",
+    "show_id": "10",
+    "totalrev": "527.1399974822998",
+    "revperc": 0.081727638242272
+  },
+  {
+    "date": "1432537200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "6",
+    "show_id": "10",
+    "totalrev": "285.5",
+    "revperc": 0.044263840402192
+  },
+  {
+    "date": "1432537200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "7",
+    "show_id": "10",
+    "totalrev": "643.5",
+    "revperc": 0.099768060591281
+  },
+  {
+    "date": "1432537200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "8",
+    "show_id": "10",
+    "totalrev": "831.949987411499",
+    "revperc": 0.12898529409943
+  },
+  {
+    "date": "1432537200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "9",
+    "show_id": "10",
+    "totalrev": "528.3200016021729",
+    "revperc": 0.08191058575203
+  },
+  {
+    "date": "1432537200",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "10",
+    "show_id": "10",
+    "totalrev": "200",
+    "revperc": 0.031007944239714
+  },
+  {
+    "date": "1433743200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "0",
+    "show_id": "11",
+    "totalrev": "512.8999938964844",
+    "revperc": 0.07124066198642
+  },
+  {
+    "date": "1433743200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "1",
+    "show_id": "11",
+    "totalrev": "778.0999908447266",
+    "revperc": 0.10807634840915
+  },
+  {
+    "date": "1433743200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "2",
+    "show_id": "11",
+    "totalrev": "250",
+    "revperc": 0.034724440843334
+  },
+  {
+    "date": "1433743200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "3",
+    "show_id": "11",
+    "totalrev": "275.6000003814697",
+    "revperc": 0.038280223638677
+  },
+  {
+    "date": "1433743200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "4",
+    "show_id": "11",
+    "totalrev": "1141.370002746582",
+    "revperc": 0.15853374056292
+  },
+  {
+    "date": "1433743200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "5",
+    "show_id": "11",
+    "totalrev": "855.7399978637695",
+    "revperc": 0.11886037173238
+  },
+  {
+    "date": "1433743200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "6",
+    "show_id": "11",
+    "totalrev": "950.9699935913086",
+    "revperc": 0.13208760514499
+  },
+  {
+    "date": "1433743200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "7",
+    "show_id": "11",
+    "totalrev": "587.4999923706055",
+    "revperc": 0.08160243492213
+  },
+  {
+    "date": "1433743200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "8",
+    "show_id": "11",
+    "totalrev": "673.5099983215332",
+    "revperc": 0.093549032376441
+  },
+  {
+    "date": "1433743200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "9",
+    "show_id": "11",
+    "totalrev": "379.8000030517578",
+    "revperc": 0.052753370953076
+  },
+  {
+    "date": "1433743200",
+    "totaldaysold": "11",
+    "program_id": 1,
+    "daysold": "10",
+    "show_id": "11",
+    "totalrev": "794.0500030517578",
+    "revperc": 0.11029176943048
+  },
+  {
+    "date": "1436166000",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "0",
+    "show_id": "12",
+    "totalrev": "695.4500045776367",
+    "revperc": 0.11260998732134
+  },
+  {
+    "date": "1436166000",
+    "totaldaysold": "11",
+    "program_id": 0,
+    "daysold": "1",
+    "show_id": "12",
+    "totalrev": "125",
+    "revperc": 0.020240489355833
+  }
+]

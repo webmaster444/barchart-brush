@@ -30,12 +30,20 @@ rect.pane {
   clip-path:url(#clip);
 }
 
-svg{
-  width: 60%;  
+#totalrev_chart_wrapper svg{
+  width: 70%;  
 }
+
+#eventlength_chart_wrapper svg,#projectid_chart_wrapper svg{
+  width: 80%;
+}
+
 #totalrev_chart_wrapper{
   width: 100%;
   text-align: center;
+}
+#eventlength_chart_wrapper text,#projectid_chart_wrapper text{
+  font-size: 20px;
 }
 #eventlength_chart_wrapper,#projectid_chart_wrapper{
   width: 50%;
@@ -122,12 +130,13 @@ var rectTransform = function(d) {
 var rectTransform2 = function(d) {
     return "translate(" + x2(d.date) + "," + y2(d.totalrev) + ")";
     };
-d3.json("data/testdatawithoutnull.json", function(error, jsondata) {
+d3.json("data/sampledata.json", function(error, jsondata) {
   
 	// data = reformatData(jsondata);
   data = dataByDate(jsondata);  
   data = reformatData(data);
-  data1 = reformatData(jsondata);
+
+  data1 = reformatData(jsondata);  
   var endDate = d3.max(data.map(function(d){return getNextDay(d.date)}));
   var startDate = d3.min(data.map(function(d){return d.date}));
   	// x.domain([startDate,endDate]);
@@ -169,7 +178,7 @@ d3.json("data/testdatawithoutnull.json", function(error, jsondata) {
     var g_containers1 = context.selectAll(".chart")
         .data(data).enter()
         .append('g')
-        .attr('class', 'g_containers')
+        .attr('class', 'g_containers1')
         .attr("transform", rectTransform2);
     
     g_containers1.append('rect')
@@ -207,18 +216,24 @@ d3.json("data/testdatawithoutnull.json", function(error, jsondata) {
 });
 
 function brushed() {
-  x.domain(brush.empty() ? x2.domain() : brush.extent());  
+  x.domain(brush.empty() ? x2.domain() : brush.extent());    
   focus.select(".x.axis").call(xAxis);
   // Reset zoom scale's domain	
   drawChart(data);
+  refreshSubCharts(x.domain());
   zoom.x(x);
 }
 
+function refreshSubCharts(dateRange){  
+  beDate = new Date(dateRange[0]).getTime();
+  enDate = new Date(dateRange[1]).getTime();
+  dataByProgramId(data,beDate,enDate);
+}
 function dataByDate(data){
   var expensesByName = d3.nest().key(function(d){
     return d.date;
   }).rollup(function(v){
-    return d3.sum(v, function(d){return d.totalrev})
+    return d3.sum(v, function(d){return d.totalrev}).toFixed(2);
   }).entries(data).map(function(group){        
     return {
       date:group.key,
@@ -228,11 +243,17 @@ function dataByDate(data){
   return expensesByName;
 }
 
-function dataByProgramId(data){
+function dataByProgramId(data,beDate,enDate){  
   var expensesByName = d3.nest().key(function(d){
     return d.program_id;
   }).rollup(function(v){
-    return d3.sum(v, function(d){return d.totalrev})
+    return d3.sum(v, function(d){            
+      cuDate = new Date(d.date).getTime();
+      if((cuDate >=beDate)&&(cuDate <=enDate))
+        return d.totalrev;
+      if(beDate==undefined && enDate==undefined)
+        return d.totalrev;
+    }).toFixed(2);
   }).entries(data).map(function(group){        
     return {
       program_id:group.key,
@@ -245,7 +266,7 @@ function dataByEventLength(data){
   var expensesByName = d3.nest().key(function(d){
     return d.totaldaysold;
   }).rollup(function(v){
-    return d3.sum(v, function(d){return d.totalrev})
+    return d3.sum(v, function(d){return d.totalrev}).toFixed(2);
   }).entries(data).map(function(group){        
     return {
       totaldaysold:group.key,
@@ -304,7 +325,7 @@ function drawEventLengthChart(data){
   //set up svg using margin conventions - we'll need plenty of room on the left for labels
   var margin = {
       top: 15,
-      right: 35,
+      right: 120,
       bottom: 15,
       left: 60
   };
@@ -382,7 +403,7 @@ function projectIdChart(data){
   //set up svg using margin conventions - we'll need plenty of room on the left for labels
   var margin = {
       top: 15,
-      right: 25,
+      right: 80,
       bottom: 15,
       left: 60
   };
