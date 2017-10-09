@@ -28,33 +28,15 @@ d3.json("data/sampledata.json", function(error, jsondata) {
 
     var totalheight = height + height2;
     var svg = d3.select("#totalrev_chart_wrapper").append("svg")
-        .attr('viewBox', '0 0 960 500');
-
-    svg.append("defs").append("clipPath")
-        .attr("id", "clip")
-        .append("rect")
-        .attr("width", width)
-        .attr("height", height);
-
-    var focus = svg.append("g")
-        .attr("class", "focus")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr('viewBox', '0 0 960 100');
 
     var context = svg.append("g")
         .attr("class", "context")
-        .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+        .attr("transform", "translate(" + margin2.left + "," + margin.top + ")");
 
     var zoom = d3.behavior.zoom()
         .on("zoom", draw);
-
-    // Add rect cover the zoomed graph and attach zoom event.
-    var rect = svg.append("svg:rect")
-        .attr("class", "pane")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .call(zoom);
-
+    
     var rectTransform2 = function(d) {
         return "translate(" + x2(d.date) + "," + y2(d.totalrev) + ")";
     };
@@ -70,47 +52,13 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     var startDate = d3.min(data.map(function(d) {
         return d.date
     }));
-    // x.domain([startDate,endDate]);
-    // x.domain(d3.extent(data.map(function(d) {
-    //     return d.date
-    // })))
-    // y.domain([0, d3.max(data.map(function(d) {
-    //     return d.totalrev;
-    // }))]);
+
     x2.domain(d3.extent(data.map(function(d) {
         return d.date
     })));
     y2.domain([0, d3.max(data.map(function(d) {
         return d.totalrev;
     }))]);
-
-    // Set up zoom behavior
-    // zoom.x(x);
-
-    // var initData = getTotalDate(jsondata,startDate,endDate);  
-    // var g_wrapper = focus.append('g').attr('class', 'g_wrapper');
-    // var g_containers = g_wrapper.selectAll(".chart")
-    //     .data(data).enter()
-    //     .append('g')
-    //     .attr('class', 'g_containers')
-    //     .attr("transform", rectTransform);
-
-    // g_containers.append('rect')
-    //     .attr('x', 0)
-    //     .attr('y', 0)
-    //     .attr('width', 20)
-    //     .attr('height', function(d) {
-    //         return height - y(d.totalrev);
-    //     });
-
-    // focus.append("g")
-    //     .attr("class", "x axis")
-    //     .attr("transform", "translate(0," + height + ")")
-    //     .call(xAxis);
-
-    // focus.append("g")
-    //     .attr("class", "y axis")
-    //     .call(yAxis);
 
     var g_containers1 = context.selectAll(".chart")
         .data(data).enter()
