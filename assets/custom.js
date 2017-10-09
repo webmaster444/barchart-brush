@@ -16,15 +16,13 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         height2 = 500 - margin2.top - margin2.bottom;
 
     var parseDate = d3.time.format("%b %Y").parse;
-
-    var x = d3.scale.ordinal().range([0, width]),
-        x2 = d3.time.scale().range([0, width]),
-        y = d3.scale.linear().range([height, 0]),
+    
+    var x2 = d3.time.scale().range([0, width]),        
         y2 = d3.scale.linear().range([height2, 0]);
 
-    var xAxis = d3.svg.axis().scale(x).orient("bottom"),
-        xAxis2 = d3.svg.axis().scale(x2).orient("bottom"),
-        yAxis = d3.svg.axis().scale(y).orient("left");
+    // var xAxis = d3.svg.axis().scale(x).orient("bottom"),
+    var xAxis2 = d3.svg.axis().scale(x2).orient("bottom");
+        // yAxis = d3.svg.axis().scale(y).orient("left");
 
     var brush = d3.svg.brush()
         .x(x2)
@@ -59,9 +57,9 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .call(zoom);
 
-    var rectTransform = function(d) {
-        return "translate(" + x(d.daysold) + "," + y(d.totalrev) + ")";
-    };
+    // var rectTransform = function(d) {
+    //     return "translate(" + x(d.daysold) + "," + y(d.totalrev) + ")";
+    // };
     var rectTransform2 = function(d) {
         return "translate(" + x2(d.date) + "," + y2(d.totalrev) + ")";
     };
@@ -78,42 +76,46 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         return d.date
     }));
     // x.domain([startDate,endDate]);
-    x.domain(d3.extent(data.map(function(d) {
+    // x.domain(d3.extent(data.map(function(d) {
+    //     return d.date
+    // })))
+    // y.domain([0, d3.max(data.map(function(d) {
+    //     return d.totalrev;
+    // }))]);
+    x2.domain(d3.extent(data.map(function(d) {
         return d.date
-    })))
-    y.domain([0, d3.max(data.map(function(d) {
+    })));
+    y2.domain([0, d3.max(data.map(function(d) {
         return d.totalrev;
     }))]);
-    x2.domain(x.domain());
-    y2.domain(y.domain());
 
     // Set up zoom behavior
-    zoom.x(x);
+    // zoom.x(x);
 
     // var initData = getTotalDate(jsondata,startDate,endDate);  
-    var g_wrapper = focus.append('g').attr('class', 'g_wrapper');
-    var g_containers = g_wrapper.selectAll(".chart")
-        .data(data).enter()
-        .append('g')
-        .attr('class', 'g_containers')
-        .attr("transform", rectTransform);
+    // var g_wrapper = focus.append('g').attr('class', 'g_wrapper');
+    // var g_containers = g_wrapper.selectAll(".chart")
+    //     .data(data).enter()
+    //     .append('g')
+    //     .attr('class', 'g_containers')
+    //     .attr("transform", rectTransform);
 
-    g_containers.append('rect')
-        .attr('x', 0)
-        .attr('y', 0)
-        .attr('width', 20)
-        .attr('height', function(d) {
-            return height - y(d.totalrev);
-        });
+    // g_containers.append('rect')
+    //     .attr('x', 0)
+    //     .attr('y', 0)
+    //     .attr('width', 20)
+    //     .attr('height', function(d) {
+    //         return height - y(d.totalrev);
+    //     });
 
-    focus.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+    // focus.append("g")
+    //     .attr("class", "x axis")
+    //     .attr("transform", "translate(0," + height + ")")
+    //     .call(xAxis);
 
-    focus.append("g")
-        .attr("class", "y axis")
-        .call(yAxis);
+    // focus.append("g")
+    //     .attr("class", "y axis")
+    //     .call(yAxis);
 
     var g_containers1 = context.selectAll(".chart")
         .data(data).enter()
@@ -127,7 +129,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         .attr('width', function(d) {
             var tmr = new Date(d.date);
             tmr.setDate(d.date.getDate() + 1);
-            return x(tmr) - x(d.date);
+            return x2(tmr) - x2(d.date);
         })
         .attr('height', function(d) {
             return height2 - y2(d.totalrev);
@@ -156,11 +158,11 @@ d3.json("data/sampledata.json", function(error, jsondata) {
 
     function brushed() {
         x.domain(brush.empty() ? x2.domain() : brush.extent());
-        focus.select(".x.axis").call(xAxis);
+        // focus.select(".x.axis").call(xAxis2);
         // Reset zoom scale's domain  
-        drawChart(data);
+        // drawChart(data);
         refreshSubCharts(x.domain());
-        zoom.x(x);
+        // zoom.x(x2);
     }
 
     function refreshSubCharts(dateRange) {
@@ -201,9 +203,6 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     }
 
     function drawChart(data) {
-        var g_containers = focus.selectAll(".g_containers")
-            .attr("transform", rectTransform);
-
         g_containers.select('rect')
             .attr('x', 0)
             .attr('y', 0)
