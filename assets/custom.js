@@ -16,13 +16,11 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         height2 = 500 - margin2.top - margin2.bottom;
 
     var parseDate = d3.time.format("%b %Y").parse;
-    
-    var x2 = d3.time.scale().range([0, width]),        
+    var x = d3.time.scale().range([0, width]),
+        x2 = d3.time.scale().range([0, width]),        
         y2 = d3.scale.linear().range([height2, 0]);
-
-    // var xAxis = d3.svg.axis().scale(x).orient("bottom"),
-    var xAxis2 = d3.svg.axis().scale(x2).orient("bottom");
-        // yAxis = d3.svg.axis().scale(y).orient("left");
+    
+    var xAxis2 = d3.svg.axis().scale(x2).orient("bottom");        
 
     var brush = d3.svg.brush()
         .x(x2)
@@ -57,9 +55,6 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .call(zoom);
 
-    // var rectTransform = function(d) {
-    //     return "translate(" + x(d.daysold) + "," + y(d.totalrev) + ")";
-    // };
     var rectTransform2 = function(d) {
         return "translate(" + x2(d.date) + "," + y2(d.totalrev) + ")";
     };
