@@ -188,316 +188,238 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     return expensesByName;
   }
 
-function dataByProgramId(data,beDate,enDate){  
-  var expensesByName = d3.nest().key(function(d){
-    return d.program_id;
-  }).rollup(function(v){
-    return d3.sum(v, function(d){            
-      cuDate = new Date(d.date).getTime();
-      if((cuDate >=beDate)&&(cuDate <=enDate))
-        return d.totalrev;
-      if(beDate==undefined && enDate==undefined)
-        return d.totalrev;
-    }).toFixed(2);
-  }).entries(data).map(function(group){        
-    return {
-      program_id:group.key,
-      totalrev:group.values
-    }
-  });
-  return expensesByName;
-}
-function dataByEventLength(data,beDate,enDate){
-  var expensesByName = d3.nest().key(function(d){
-    return d.totaldaysold;
-  }).rollup(function(v){
-    return d3.sum(v, function(d){      
-      cuDate = new Date(d.date).getTime();
-      if((cuDate >=beDate)&&(cuDate <=enDate))
-        return d.totalrev;
-      if(beDate==undefined && enDate==undefined)
-        return d.totalrev;
-    }).toFixed(2);
-  }).entries(data).map(function(group){        
-    return {
-      totaldaysold:group.key,
-      totalrev:group.values
-    }
-  });
-  return expensesByName;
-}
-function draw() {
-  // redraw function  
-  focus.select(".x.axis").call(xAxis);
-  // Force changing brush range
-  brush.extent(x.domain());
-  
-  svg.select(".brush").call(brush);
-  drawChart(data);  
-  refreshSubCharts(x.domain());
-}
-
-function reformatData(d) {    
-    d.forEach(function(tmp_data){
-      tmp_data.date = new Date(tmp_data.date * 1000);
-      tmp_data.totalrev = parseFloat(tmp_data.totalrev);
-    });   
-    return d;
-}
-
-function getNextDay(day){
-  var tmr = new Date(day);
-  tmr.setDate(day.getDate()+1);
-  return tmr;
-}
-
-function drawEventLengthChart(data){
-  //sort bars based on value
-  data = data.sort(function (a, b) {
-      return d3.ascending(a.totalrev, b.totalrev);
-  })
-
-  //set up svg using margin conventions - we'll need plenty of room on the left for labels
-  var margin = {
-      top: 15,
-      right: 120,
-      bottom: 15,
-      left: 60
-  };
-
-  var width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
-  
-  var svg = d3.select("#eventlength_chart_wrapper").append("svg")
-      .attr('viewBox','0 0 960 500')
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  var x = d3.scale.linear()
-      .range([0, width])
-      .domain([0, d3.max(data, function (d) {
+  function dataByProgramId(data,beDate,enDate){  
+    var expensesByName = d3.nest().key(function(d){
+      return d.program_id;
+    }).rollup(function(v){
+      return d3.sum(v, function(d){            
+        cuDate = new Date(d.date).getTime();
+        if((cuDate >=beDate)&&(cuDate <=enDate))
           return d.totalrev;
-      })]);
-
-  var y = d3.scale.ordinal()
-      .rangeRoundBands([height, 0], .1)
-      .domain(data.map(function (d) {
-          return d.totaldaysold;
-      }));
-
-  //make y axis to show bar names
-  var yAxis = d3.svg.axis()
-      .scale(y)
-      //no tick marks
-      .tickSize(0)
-      .orient("left");
-
-  var gy = svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-
-  var bars = svg.selectAll(".bar")
-      .data(data)
-      .enter()
-      .append("g")
-
-  //append rects
-  bars.append("rect")
-      .transition()
-      .attr("class", "bar")
-      .attr("y", function (d) {
-          return y(d.totaldaysold);
-      })
-      .attr("height", y.rangeBand())
-      .attr("x", 0)
-      .attr("width", function (d) {
-          return x(d.totalrev);
-      });
-
-  //add a value label to the right of each bar
-  bars.append("text")
-      .attr("class", "label")
-      //y position of the label is halfway down the bar
-      .attr("y", function (d) {
-          return y(d.totaldaysold) + y.rangeBand() / 2 + 4;
-      })
-      //x position is 3 pixels to the right of the bar
-      .attr("x", function (d) {
-          return x(d.totalrev) + 3;
-      })
-      .text(function (d) {
+        if(beDate==undefined && enDate==undefined)
           return d.totalrev;
-      });
-}
-
-function updateEventLengthChart(data){  
-  data = reformatData(data);
-  //sort bars based on value
-  data = data.sort(function (a, b) {
-      return d3.ascending(a.totalrev, b.totalrev);
-  })
-
-  //set up svg using margin conventions - we'll need plenty of room on the left for labels
-  var margin = {
-      top: 15,
-      right: 120,
-      bottom: 15,
-      left: 60
-  };
-
-  var width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
-
-  var svg = d3.select("#eventlength_chart_wrapper svg");
-
-  var x = d3.scale.linear()
-      .range([0, width])
-      .domain([0, d3.max(data, function (d) {
+      }).toFixed(2);
+    }).entries(data).map(function(group){        
+      return {
+        program_id:group.key,
+        totalrev:group.values
+      }
+    });
+    return expensesByName;
+  }
+  function dataByEventLength(data,beDate,enDate){
+    var expensesByName = d3.nest().key(function(d){
+      return d.totaldaysold;
+    }).rollup(function(v){
+      return d3.sum(v, function(d){      
+        cuDate = new Date(d.date).getTime();
+        if((cuDate >=beDate)&&(cuDate <=enDate))
           return d.totalrev;
-      })]);
-
-  var y = d3.scale.ordinal()
-      .rangeRoundBands([height, 0], .1)
-      .domain(data.map(function (d) {
-          return d.totaldaysold;
-      }));
-
-  //make y axis to show bar names
-  var yAxis = d3.svg.axis()
-      .scale(y)
-      //no tick marks
-      .tickSize(0)
-      .orient("left");
-
-  var gy = svg.select("#eventlength_chart_wrapper g.y.axis")      
-      .call(yAxis)
-
-  var bars = svg.selectAll(".bar")
-      .data(data)      
-
-  //append rects
-  bars.transition()      
-      .attr("y", function (d) {
-          return y(d.totaldaysold);
-      })
-      .attr("height", y.rangeBand())
-      .attr("x", 0)
-      .attr("width", function (d) {
-          return x(d.totalrev);
-      });
-
-  //add a value label to the right of each bar
-  var labels = svg.selectAll(".label")
-    .data(data);
-
-  labels            
-      .attr("y", function (d) {
-          return y(d.totaldaysold) + y.rangeBand() / 2 + 4;
-      })
-      //x position is 3 pixels to the right of the bar
-      .attr("x", function (d) {
-          return x(d.totalrev) + 3;
-      })
-      .text(function (d) {
+        if(beDate==undefined && enDate==undefined)
           return d.totalrev;
-      });
-}
+      }).toFixed(2);
+    }).entries(data).map(function(group){        
+      return {
+        totaldaysold:group.key,
+        totalrev:group.values
+      }
+    });
+    return expensesByName;
+  }
+  function draw() {
+    // redraw function  
+    focus.select(".x.axis").call(xAxis);
+    // Force changing brush range
+    brush.extent(x.domain());
+    
+    svg.select(".brush").call(brush);
+    drawChart(data);  
+    refreshSubCharts(x.domain());
+  }
 
-function projectIdChart(data){
-  //sort bars based on value
-  data = data.sort(function (a, b) {
-      return d3.ascending(a.totalrev, b.totalrev);
-  })
+  function reformatData(d) {    
+      d.forEach(function(tmp_data){
+        tmp_data.date = new Date(tmp_data.date * 1000);
+        tmp_data.totalrev = parseFloat(tmp_data.totalrev);
+      });   
+      return d;
+  }
 
-  //set up svg using margin conventions - we'll need plenty of room on the left for labels
-  var margin = {
-      top: 15,
-      right: 100,
-      bottom: 15,
-      left: 60
-  };
+  function getNextDay(day){
+    var tmr = new Date(day);
+    tmr.setDate(day.getDate()+1);
+    return tmr;
+  }
 
-  var width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
-  
-  var svg = d3.select("#projectid_chart_wrapper").append("svg")
-      .attr('viewBox','0 0 960 500')
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  var x = d3.scale.linear()
-      .range([0, width])
-      .domain([0, d3.max(data, function (d) {
-          return d.totalrev;
-      })]);
-
-  var y = d3.scale.ordinal()
-      .rangeRoundBands([height, 0], .1)
-      .domain(data.map(function (d) {
-          return d.program_id;
-      }));
-
-  //make y axis to show bar names
-  var yAxis = d3.svg.axis()
-      .scale(y)
-      //no tick marks
-      .tickSize(0)
-      .orient("left");
-
-  var gy = svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-
-  var bars = svg.selectAll(".bar")
-      .data(data)
-      .enter()
-      .append("g")
-
-  //append rects
-  bars.append("rect")
-      .attr("class", "bar")
-      .attr("y", function (d) {
-          return y(d.program_id);
-      })
-      .attr("height", y.rangeBand())
-      .attr("x", 0)
-      .attr("width", function (d) {
-          return x(d.totalrev);
-      });
-
-  //add a value label to the right of each bar
-  bars.append("text")
-      .attr("class", "label")
-      //y position of the label is halfway down the bar
-      .attr("y", function (d) {
-          return y(d.program_id) + y.rangeBand() / 2 + 4;
-      })
-      //x position is 3 pixels to the right of the bar
-      .attr("x", function (d) {
-          return x(d.totalrev) + 3;
-      })
-      .text(function (d) {
-          return d.totalrev;
-      });
-}
-
-  function updateProjectIdChart(data){  
+  function drawEventLengthChart(data){
     //sort bars based on value
-    // data = data.sort(function (a, b) {
-    //     return d3.ascending(a.totalrev, b.totalrev);
-    // })
-    var margin = {
-      top: 15,
-      right: 100,
-      bottom: 15,
-      left: 60
-      };
+    data = data.sort(function (a, b) {
+        return d3.ascending(a.totalrev, b.totalrev);
+    })
 
-  var width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
-
-    var svg = d3.select("#projectid_chart_wrapper svg");
     //set up svg using margin conventions - we'll need plenty of room on the left for labels
+    var margin = { top: 15, right: 120, bottom: 15, left: 60 };
+
+    var width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+    
+    var svg = d3.select("#eventlength_chart_wrapper").append("svg")
+        .attr('viewBox','0 0 960 500')
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var x = d3.scale.linear()
+        .range([0, width])
+        .domain([0, d3.max(data, function (d) {
+            return d.totalrev;
+        })]);
+
+    var y = d3.scale.ordinal()
+        .rangeRoundBands([height, 0], .1)
+        .domain(data.map(function (d) {
+            return d.totaldaysold;
+        }));
+
+    //make y axis to show bar names
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        //no tick marks
+        .tickSize(0)
+        .orient("left");
+
+    var gy = svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+
+    var bars = svg.selectAll(".bar")
+        .data(data)
+        .enter()
+        .append("g")
+
+    //append rects
+    bars.append("rect")
+        .transition()
+        .attr("class", "bar")
+        .attr("y", function (d) {
+            return y(d.totaldaysold);
+        })
+        .attr("height", y.rangeBand())
+        .attr("x", 0)
+        .attr("width", function (d) {
+            return x(d.totalrev);
+        });
+
+    //add a value label to the right of each bar
+    bars.append("text")
+        .attr("class", "label")
+        //y position of the label is halfway down the bar
+        .attr("y", function (d) {
+            return y(d.totaldaysold) + y.rangeBand() / 2 + 4;
+        })
+        //x position is 3 pixels to the right of the bar
+        .attr("x", function (d) {
+            return x(d.totalrev) + 3;
+        })
+        .text(function (d) {
+            return d.totalrev;
+        });
+  }
+
+  function updateEventLengthChart(data){  
+    data = reformatData(data);
+    //sort bars based on value
+    data = data.sort(function (a, b) {
+        return d3.ascending(a.totalrev, b.totalrev);
+    })
+
+    //set up svg using margin conventions - we'll need plenty of room on the left for labels
+    var margin = {
+        top: 15,
+        right: 120,
+        bottom: 15,
+        left: 60
+    };
+
+    var width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    var svg = d3.select("#eventlength_chart_wrapper svg");
+
+    var x = d3.scale.linear()
+        .range([0, width])
+        .domain([0, d3.max(data, function (d) {
+            return d.totalrev;
+        })]);
+
+    var y = d3.scale.ordinal()
+        .rangeRoundBands([height, 0], .1)
+        .domain(data.map(function (d) {
+            return d.totaldaysold;
+        }));
+
+    //make y axis to show bar names
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        //no tick marks
+        .tickSize(0)
+        .orient("left");
+
+    var gy = svg.select("#eventlength_chart_wrapper g.y.axis")      
+        .call(yAxis)
+
+    var bars = svg.selectAll(".bar")
+        .data(data)      
+
+    //append rects
+    bars.transition()      
+        .attr("y", function (d) {
+            return y(d.totaldaysold);
+        })
+        .attr("height", y.rangeBand())
+        .attr("x", 0)
+        .attr("width", function (d) {
+            return x(d.totalrev);
+        });
+
+    //add a value label to the right of each bar
+    var labels = svg.selectAll(".label")
+      .data(data);
+
+    labels            
+        .attr("y", function (d) {
+            return y(d.totaldaysold) + y.rangeBand() / 2 + 4;
+        })
+        //x position is 3 pixels to the right of the bar
+        .attr("x", function (d) {
+            return x(d.totalrev) + 3;
+        })
+        .text(function (d) {
+            return d.totalrev;
+        });
+  }
+
+  function projectIdChart(data){
+    //sort bars based on value
+    data = data.sort(function (a, b) {
+        return d3.ascending(a.totalrev, b.totalrev);
+    })
+
+    //set up svg using margin conventions - we'll need plenty of room on the left for labels
+    var margin = {
+        top: 15,
+        right: 100,
+        bottom: 15,
+        left: 60
+    };
+
+    var width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+    
+    var svg = d3.select("#projectid_chart_wrapper").append("svg")
+        .attr('viewBox','0 0 960 500')
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
     var x = d3.scale.linear()
         .range([0, width])
         .domain([0, d3.max(data, function (d) {
@@ -510,45 +432,109 @@ function projectIdChart(data){
             return d.program_id;
         }));
 
-    // //make y axis to show bar names
+    //make y axis to show bar names
     var yAxis = d3.svg.axis()
         .scale(y)
         //no tick marks
         .tickSize(0)
         .orient("left");
 
-    var gy = svg.select("#projectid_chart_wrapper g.y.axis")      
+    var gy = svg.append("g")
+        .attr("class", "y axis")
         .call(yAxis)
 
     var bars = svg.selectAll(".bar")
         .data(data)
+        .enter()
+        .append("g")
 
     //append rects
-    bars.transition()        
+    bars.append("rect")
+        .attr("class", "bar")
         .attr("y", function (d) {
             return y(d.program_id);
         })
         .attr("height", y.rangeBand())
-        .attr("x", 0)        
+        .attr("x", 0)
         .attr("width", function (d) {
             return x(d.totalrev);
         });
 
     //add a value label to the right of each bar
-    var labels = svg.selectAll(".label")
-        .data(data)
+    bars.append("text")
+        .attr("class", "label")
+        //y position of the label is halfway down the bar
+        .attr("y", function (d) {
+            return y(d.program_id) + y.rangeBand() / 2 + 4;
+        })
+        //x position is 3 pixels to the right of the bar
+        .attr("x", function (d) {
+            return x(d.totalrev) + 3;
+        })
+        .text(function (d) {
+            return d.totalrev;
+        });
+  }
 
-    labels   
-      //y position of the label is halfway down the bar
-      .attr("y", function (d) {
-          return y(d.program_id) + y.rangeBand() / 2 + 4;
-      })
-      //x position is 3 pixels to the right of the bar
-      .attr("x", function (d) {
-          return x(d.totalrev) + 3;
-      })
-      .text(function (d) {
-          return d.totalrev;
-      });
+  function updateProjectIdChart(data){  
+    var margin = { top: 15,right: 100,bottom: 15,left: 60};
+
+    var width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+      var svg = d3.select("#projectid_chart_wrapper svg");
+      //set up svg using margin conventions - we'll need plenty of room on the left for labels
+      var x = d3.scale.linear()
+          .range([0, width])
+          .domain([0, d3.max(data, function (d) {
+              return d.totalrev;
+          })]);
+
+      var y = d3.scale.ordinal()
+          .rangeRoundBands([height, 0], .1)
+          .domain(data.map(function (d) {
+              return d.program_id;
+          }));
+
+      // //make y axis to show bar names
+      var yAxis = d3.svg.axis()
+          .scale(y)
+          //no tick marks
+          .tickSize(0)
+          .orient("left");
+
+      var gy = svg.select("#projectid_chart_wrapper g.y.axis")      
+          .call(yAxis)
+
+      var bars = svg.selectAll(".bar")
+          .data(data)
+
+      //append rects
+      bars.transition()        
+          .attr("y", function (d) {
+              return y(d.program_id);
+          })
+          .attr("height", y.rangeBand())
+          .attr("x", 0)        
+          .attr("width", function (d) {
+              return x(d.totalrev);
+          });
+
+      //add a value label to the right of each bar
+      var labels = svg.selectAll(".label")
+          .data(data)
+
+      labels   
+        //y position of the label is halfway down the bar
+        .attr("y", function (d) {
+            return y(d.program_id) + y.rangeBand() / 2 + 4;
+        })
+        //x position is 3 pixels to the right of the bar
+        .attr("x", function (d) {
+            return x(d.totalrev) + 3;
+        })
+        .text(function (d) {
+            return d.totalrev;
+        });
   }
 });
