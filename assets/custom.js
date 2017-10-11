@@ -252,24 +252,59 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             })
             .on("mouseover", tip.show)
             .on("mouseout", tip.hide);
-
-        //add a value label to the right of each bar
-        // bars.append("text")
-        //     .attr("class", "label")
-        //     //y position of the label is halfway down the bar
-        //     .attr("y", function(d) {
-        //         return y(d.totalrev);
-        //     })
-        //     //x position is 3 pixels to the right of the bar
-        //     .attr("x", function(d) {
-        //         return x(d.daysold);
-        //     })
-        //     .text(function(d) {
-        //         return d.totalrev;
-        //     });
     }
     function updateTotalRevchart(data) {
+        data = reformatData(data);        
+        //set up svg using margin conventions - we'll need plenty of room on the left for labels
+        var margin = {
+            top: 15,
+            right: 120,
+            bottom: 30,
+            left: 60
+        };
 
+        var width = 960 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+        var svg = d3.select("#total_rev_by_date_chart_wrapper svg");
+
+        var y = d3.scale.linear()
+            .range([height, 0])
+            .domain([0, d3.max(data, function(d) {                
+                return d.totalrev;
+            })]);            
+
+        var x = d3.scale.ordinal()
+            .rangeRoundBands([0, width], .1)
+            .domain(data.map(function(d) {
+                return d.daysold;
+            }));
+        //make y axis to show bar names
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            //no tick marks
+            .tickSize(0)
+            .orient("left");        
+
+        var gy = svg.select("g.y.axis").call(yAxis);
+
+        var bars = svg.selectAll(".bar").data(data);
+
+        //append rects
+        bars.transition()
+            .attr("class", "bar")
+            .attr("y", function(d) {
+                return y(d.totalrev);
+            })
+            .attr("height",function(d){
+                return height - y(d.totalrev)
+            })
+            .attr("x", function(d){
+                return x(d.daysold);
+            })
+            .attr("width",function(d){                
+                return x.rangeBand();
+            });
     }
 
     function drawChart(data) {
