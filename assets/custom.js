@@ -220,11 +220,11 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         //     .attr("class", "label")
         //     //y position of the label is halfway down the bar
         //     .attr("y", function(d) {
-        //         return x(d.daysold) + x.rangeBand() / 2 + 4;
+        //         return y(d.totalrev);
         //     })
         //     //x position is 3 pixels to the right of the bar
         //     .attr("x", function(d) {
-        //         return y(d.totalrev) + 3;
+        //         return x(d.daysold);
         //     })
         //     .text(function(d) {
         //         return d.totalrev;
@@ -396,8 +396,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         bars.append("text")
             .attr("class", "label")
             //y position of the label is halfway down the bar
-            .attr("y", function(d) {
-                console.log(y.rangeBand());
+            .attr("y", function(d) {                
                 return y(d.totaldaysold) + y.rangeBand() / 2 + 4;
             })
             //x position is 3 pixels to the right of the bar
