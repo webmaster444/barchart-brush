@@ -26,7 +26,7 @@ rect.pane {
   clip-path:url(#clip);
 }
 
-#totalrev_chart_wrapper svg{
+#total_rev_by_date_chart_wrapper svg, #totalrev_chart_wrapper svg{
   width: 70%;  
 }
 
@@ -34,7 +34,7 @@ rect.pane {
   width: 80%;
 }
 
-#totalrev_chart_wrapper{
+#totalrev_chart_wrapper, #total_rev_by_date_chart_wrapper{
   width: 100%;
   text-align: center;
 }

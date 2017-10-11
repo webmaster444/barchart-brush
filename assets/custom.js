@@ -99,6 +99,8 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     data3 = reformatData(data3);
     projectIdChart(data3);
 
+    var data4 = getTotalDate(jsondata);
+    drawTotalRevChart(data4);
     function brushed() {
         x.domain(brush.empty() ? x2.domain() : brush.extent());
         // focus.select(".x.axis").call(xAxis2);
@@ -141,6 +143,93 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         return expensesByName;
     }
 
+    function drawTotalRevChart(data){
+        data = reformatData(data);
+        //sort bars based on value
+
+        //set up svg using margin conventions - we'll need plenty of room on the left for labels
+        var margin = {
+            top: 15,
+            right: 120,
+            bottom: 30,
+            left: 60
+        };
+
+        var width = 960 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+        var svg = d3.select("#total_rev_by_date_chart_wrapper").append("svg")
+            .attr('viewBox', '0 0 960 500')
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var y = d3.scale.linear()
+            .range([height, 0])
+            .domain([0, d3.max(data, function(d) {                
+                return d.totalrev;
+            })]);
+            
+        var x = d3.scale.ordinal()
+            .rangeRoundBands([0, width], .1)
+            .domain(data.map(function(d) {
+                return d.daysold;
+            }));
+
+        //make y axis to show bar names
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            //no tick marks
+            .tickSize(0)
+            .orient("left");
+
+        var xAxis = d3.svg.axis().scale(x).tickSize(6).orient('bottom').tickFormat(function(d){return 'Day'+d;});
+
+        var gy = svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+
+        var gx = svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+
+        var bars = svg.selectAll(".bar")
+            .data(data)
+            .enter()
+            .append("g")
+
+        //append rects
+        bars.append("rect")
+            .transition()
+            .attr("class", "bar")
+            .attr("y", function(d) {
+                return y(d.totalrev);
+            })
+            .attr("height",function(d){
+                return height - y(d.totalrev)
+            })
+            .attr("x", function(d){
+                return x(d.daysold);
+            })
+            .attr("width",function(d){                
+                return x.rangeBand();
+            });
+
+        //add a value label to the right of each bar
+        // bars.append("text")
+        //     .attr("class", "label")
+        //     //y position of the label is halfway down the bar
+        //     .attr("y", function(d) {
+        //         return x(d.daysold) + x.rangeBand() / 2 + 4;
+        //     })
+        //     //x position is 3 pixels to the right of the bar
+        //     .attr("x", function(d) {
+        //         return y(d.totalrev) + 3;
+        //     })
+        //     .text(function(d) {
+        //         return d.totalrev;
+        //     });
+    }
     function updateTotalRevchart(data) {
 
     }
@@ -308,6 +397,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .attr("class", "label")
             //y position of the label is halfway down the bar
             .attr("y", function(d) {
+                console.log(y.rangeBand());
                 return y(d.totaldaysold) + y.rangeBand() / 2 + 4;
             })
             //x position is 3 pixels to the right of the bar
