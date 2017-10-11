@@ -36,7 +36,14 @@ d3.json("data/sampledata.json", function(error, jsondata) {
 
     var zoom = d3.behavior.zoom()
         .on("zoom", draw);
-    
+
+    var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(function(d) {
+        return "<strong>Totalrev:</strong> <span style='color:red'>" + d.totalrev + "</span>";
+      });
+
     var rectTransform2 = function(d) {
         return "translate(" + x2(d.date) + "," + y2(d.totalrev) + ")";
     };
@@ -76,7 +83,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         })
         .attr('height', function(d) {
             return height2 - y2(d.totalrev);
-        });
+        })   
 
     context.append("g")
         .attr("class", "x axis")
@@ -162,6 +169,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .attr('viewBox', '0 0 960 500')
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        svg.call(tip);  
 
         var y = d3.scale.linear()
             .range([height, 0])
@@ -200,7 +208,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
 
         //append rects
         bars.append("rect")
-            .transition()
+            // .transition()
             .attr("class", "bar")
             .attr("y", function(d) {
                 return y(d.totalrev);
@@ -213,7 +221,9 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             })
             .attr("width",function(d){                
                 return x.rangeBand();
-            });
+            })
+            .on("mouseover", tip.show)
+            .on("mouseout", tip.hide);
 
         //add a value label to the right of each bar
         // bars.append("text")
