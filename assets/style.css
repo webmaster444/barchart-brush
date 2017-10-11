@@ -10,8 +10,8 @@ svg {
 }
 
 .brush .extent {
-  stroke: #fff;
-  fill-opacity: .125;
+  stroke: #aaa;
+  fill-opacity: .5;
   shape-rendering: crispEdges;
   clip-path: url(#clip);
 }

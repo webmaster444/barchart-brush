@@ -1,13 +1,13 @@
 d3.json("data/sampledata.json", function(error, jsondata) {
     var margin = {
             top: 10,
-            right: 10,
+            right: 40,
             bottom: 100,
             left: 40
         },
         margin2 = {
             top: 430,
-            right: 10,
+            right: 40,
             bottom: 20,
             left: 40
         },
@@ -61,7 +61,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     }));
 
     x2.domain(d3.extent(data.map(function(d) {
-        return d.date
+        return d.date;
     })));
     y2.domain([0, d3.max(data.map(function(d) {
         return d.totalrev;
@@ -97,6 +97,30 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         .attr("y", -6)
         .attr("height", height2 + 7);
 
+    brushed();
+    var brush_content = svg.selectAll('g.resize.e');
+
+        brush_content.append('circle')
+            .attr("transform", function(d) { return "translate(0,20 )"; })
+            .attr("fill","black")
+            .attr("r", 12);
+
+        brush_content.append('circle')
+            .attr("transform", function(d) { return "translate(0,20 )"; })
+            .attr("fill","white")
+            .attr("r", 3.5);
+
+        brush_content = svg.selectAll('g.resize.w');
+        
+        brush_content.append('circle')
+            .attr("transform", function(d) { return "translate(0,20 )"; })
+            .attr("fill","black")
+            .attr("r", 12);        
+        brush_content.append('circle')
+            .attr("transform", function(d) { return "translate(0,20 )"; })
+            .attr("fill","white")
+            .attr("r", 3.5);
+
     //Draw Event Length Chart 
     var data2 = dataByEventLength(jsondata);
     data2 = reformatData(data2);
@@ -108,11 +132,15 @@ d3.json("data/sampledata.json", function(error, jsondata) {
 
     var data4 = getTotalDate(jsondata);
     drawTotalRevChart(data4);
-    function brushed() {
-        x.domain(brush.empty() ? x2.domain() : brush.extent());
-        // focus.select(".x.axis").call(xAxis2);
-        // Reset zoom scale's domain  
-        // drawChart(data);
+
+    initBrush();
+    function initBrush(){
+        brush.extent(x2.domain());
+        svg.select('.brush').call(brush);        
+    }
+    function brushed() {        
+        x.domain(brush.empty() ? x2.domain() : brush.extent());        
+        // Reset zoom scale's domain          
         refreshSubCharts(x.domain());
         // zoom.x(x2);
     }
