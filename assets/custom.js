@@ -48,8 +48,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     var rectTransform2 = function(d) {
         return "translate(" + x2(d.date) + "," + y2(d.totalrev) + ")";
     };
-
-    // data = reformatData(jsondata);
+    
     data = dataByDate(jsondata);
     data = reformatData(data);
 
