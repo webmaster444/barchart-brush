@@ -98,7 +98,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         .attr("y", -6)
         .attr("height", height2 + 7);
 
-    // brushed();
+    //Custom brush 
     var brush_content = svg.selectAll('g.resize.e');
 
         brush_content.append('circle')
@@ -144,8 +144,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         x.domain(brush.empty() ? x2.domain() : brush.extent());   
         brushRange = x.domain();        
         // Reset zoom scale's domain          
-        refreshSubCharts(x.domain());
-        // zoom.x(x2);
+        refreshSubCharts(x.domain());        
     }
 
     function refreshSubCharts(dateRange) {
@@ -507,8 +506,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
 
         //make y axis to show bar names
         var yAxis = d3.svg.axis()
-            .scale(y)
-            //no tick marks
+            .scale(y)            
             .tickSize(0)
             .orient("left");
 
@@ -517,9 +515,6 @@ d3.json("data/sampledata.json", function(error, jsondata) {
 
         var bars = svg.selectAll(".bar")
             .data(data)
-        // bars.exit().transition().remove();
-        // bars.transition();
-
         //append rects
         bars
             .attr("y", function(d) {
