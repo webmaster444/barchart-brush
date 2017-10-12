@@ -162,6 +162,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         updateTotalRevchart(updatedData);
     }
 
+    //get all data by date
     function getTotalDate(jsondata, beDate, enDate) {
         var expensesByName = d3.nest().key(function(d) {
             return d.daysold;
