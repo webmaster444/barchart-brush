@@ -428,6 +428,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         var svg = d3.select("#eventlength_chart_wrapper").append("svg")
             .attr('viewBox', '0 0 960 500')
             .append("g")
+            .attr('class','g_wrapper')
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         svg.call(tip);
@@ -461,8 +462,6 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         bars.enter()
             .append("g");
 
-        bars.exit().transition().remove();
-        bars.transition();
         //append rects
         bars.append("rect")
             .attr("class", "bar")
@@ -495,7 +494,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             height = 500 - margin.top - margin.bottom;
 
         var svg = d3.select("#eventlength_chart_wrapper svg");
-
+        var g_wrapper = svg.select('g.g_wrapper');
         var x = d3.scale.linear()
             .range([0, width])
             .domain([0, d3.max(data, function(d) {
@@ -517,13 +516,25 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         var gy = svg.select("#eventlength_chart_wrapper g.y.axis")
             .call(yAxis)
 
-        var bars = svg.selectAll(".bar")
-            .data(data)
+        var bars = g_wrapper.selectAll(".bar")
+            .data(data);
+
+        // bars.transition();
+        bars.enter().append('rect').attr('class','bar').attr("y", function(d) {
+                return y(d.totaldaysold);
+            })
+            .attr("height", y.rangeBand())
+            .attr("x", 0)
+            .attr("width", function(d) {
+                return x(d.totalrev);
+            });  
+        
+        bars.exit().transition().remove();        
         //append rects
         bars
             .attr("y", function(d) {
                 return y(d.totaldaysold);
-            })
+            }).transition()
             .attr("height", y.rangeBand())
             .attr("x", 0)
             .attr("width", function(d) {
@@ -598,8 +609,8 @@ d3.json("data/sampledata.json", function(error, jsondata) {
                     d3.select(this).classed('clicked',false);
                 }else{
                     d3.select(this).classed('clicked',true);
-                }
-                // updateChartData('program_id',d.program_id);
+                    updateChartData('program_id',d.program_id);
+                }                
             });
     }
 
