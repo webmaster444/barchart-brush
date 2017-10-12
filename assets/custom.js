@@ -1,4 +1,5 @@
 d3.json("data/sampledata.json", function(error, jsondata) {
+    var brushRange;
     var margin = {
             top: 10,
             right: 40,
@@ -97,7 +98,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         .attr("y", -6)
         .attr("height", height2 + 7);
 
-    brushed();
+    // brushed();
     var brush_content = svg.selectAll('g.resize.e');
 
         brush_content.append('circle')
@@ -128,7 +129,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
 
     var data3 = dataByProgramId(jsondata);
     data3 = reformatData(data3);
-    projectIdChart(data3);
+    programIdChart(data3);
 
     var data4 = getTotalDate(jsondata);
     drawTotalRevChart(data4);
@@ -136,10 +137,12 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     initBrush();
     function initBrush(){
         brush.extent(x2.domain());
+        brushRange = x2.domain();        
         svg.select('.brush').call(brush);        
     }
     function brushed() {        
-        x.domain(brush.empty() ? x2.domain() : brush.extent());        
+        x.domain(brush.empty() ? x2.domain() : brush.extent());   
+        brushRange = x.domain();        
         // Reset zoom scale's domain          
         refreshSubCharts(x.domain());
         // zoom.x(x2);
@@ -149,7 +152,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         beDate = new Date(dateRange[0]).getTime();
         enDate = new Date(dateRange[1]).getTime();
         var updatedData = dataByProgramId(jsondata, beDate, enDate);
-        updateProjectIdChart(updatedData);
+        updateprogramIdChart(updatedData);
 
         updatedData = dataByEventLength(jsondata, beDate, enDate);
         updateEventLengthChart(updatedData);
@@ -424,6 +427,8 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+        svg.call(tip);
+
         var x = d3.scale.linear()
             .range([0, width])
             .domain([0, d3.max(data, function(d) {
@@ -448,13 +453,15 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .call(yAxis)
 
         var bars = svg.selectAll(".bar")
-            .data(data)
-            .enter()
-            .append("g")
+            .data(data);
 
+        bars.enter()
+            .append("g");
+
+        bars.exit().transition().remove();
+        bars.transition();
         //append rects
         bars.append("rect")
-            .transition()
             .attr("class", "bar")
             .attr("y", function(d) {
                 return y(d.totaldaysold);
@@ -463,22 +470,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .attr("x", 0)
             .attr("width", function(d) {
                 return x(d.totalrev);
-            });
-
-        //add a value label to the right of each bar
-        bars.append("text")
-            .attr("class", "label")
-            //y position of the label is halfway down the bar
-            .attr("y", function(d) {                
-                return y(d.totaldaysold) + y.rangeBand() / 2 + 4;
-            })
-            //x position is 3 pixels to the right of the bar
-            .attr("x", function(d) {
-                return x(d.totalrev) + 3;
-            })
-            .text(function(d) {
-                return d.totalrev;
-            });
+            }).on('mousemove',tip.show).on('mouseout',tip.hide);
     }
 
     function updateEventLengthChart(data) {
@@ -525,9 +517,11 @@ d3.json("data/sampledata.json", function(error, jsondata) {
 
         var bars = svg.selectAll(".bar")
             .data(data)
+        // bars.exit().transition().remove();
+        // bars.transition();
 
         //append rects
-        bars.transition()
+        bars
             .attr("y", function(d) {
                 return y(d.totaldaysold);
             })
@@ -535,26 +529,10 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .attr("x", 0)
             .attr("width", function(d) {
                 return x(d.totalrev);
-            });
-
-        //add a value label to the right of each bar
-        var labels = svg.selectAll(".label")
-            .data(data);
-
-        labels
-            .attr("y", function(d) {
-                return y(d.totaldaysold) + y.rangeBand() / 2 + 4;
-            })
-            //x position is 3 pixels to the right of the bar
-            .attr("x", function(d) {
-                return x(d.totalrev) + 3;
-            })
-            .text(function(d) {
-                return d.totalrev;
-            });
+            });        
     }
 
-    function projectIdChart(data) {
+    function programIdChart(data) {
         //sort bars based on value
         data = data.sort(function(a, b) {
             return d3.ascending(a.totalrev, b.totalrev);
@@ -575,6 +553,8 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .attr('viewBox', '0 0 960 500')
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        svg.call(tip);
 
         var x = d3.scale.linear()
             .range([0, width])
@@ -614,25 +594,17 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .attr("x", 0)
             .attr("width", function(d) {
                 return x(d.totalrev);
-            });
-
-        //add a value label to the right of each bar
-        bars.append("text")
-            .attr("class", "label")
-            //y position of the label is halfway down the bar
-            .attr("y", function(d) {
-                return y(d.program_id) + y.rangeBand() / 2 + 4;
-            })
-            //x position is 3 pixels to the right of the bar
-            .attr("x", function(d) {
-                return x(d.totalrev) + 3;
-            })
-            .text(function(d) {
-                return d.totalrev;
+            }).on('mousemove',tip.show).on('mouseout',tip.hide).on('mousedown', function(d){
+                if(d3.select(this).classed('clicked')){
+                    d3.select(this).classed('clicked',false);
+                }else{
+                    d3.select(this).classed('clicked',true);
+                }
+                // updateChartData('program_id',d.program_id);
             });
     }
 
-    function updateProjectIdChart(data) {
+    function updateprogramIdChart(data) {
         var margin = {
             top: 15,
             right: 100,
@@ -657,7 +629,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
                 return d.program_id;
             }));
 
-        // //make y axis to show bar names
+        //make y axis to show bar names
         var yAxis = d3.svg.axis()
             .scale(y)
             //no tick marks
@@ -679,23 +651,29 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .attr("x", 0)
             .attr("width", function(d) {
                 return x(d.totalrev);
-            });
+            });        
+    }
 
-        //add a value label to the right of each bar
-        var labels = svg.selectAll(".label")
-            .data(data)
+    function updateChartData(key,value){   
 
-        labels
-            //y position of the label is halfway down the bar
-            .attr("y", function(d) {
-                return y(d.program_id) + y.rangeBand() / 2 + 4;
-            })
-            //x position is 3 pixels to the right of the bar
-            .attr("x", function(d) {
-                return x(d.totalrev) + 3;
-            })
-            .text(function(d) {
-                return d.totalrev;
-            });
+        beDate = brushRange[0];
+        enDate = brushRange[1];
+
+        var newdata = jsondata.filter(function(d){
+            cuDate = new Date(d.date).getTime();
+            if ((cuDate >= beDate) && (cuDate <= enDate))
+            {
+                return d[key] == value;
+            }    
+        })
+
+        // var updatedData = dataByProgramId(newdata, beDate, enDate);
+        // updateprogramIdChart(updatedData);
+
+        updatedData = dataByEventLength(newdata, beDate, enDate);
+        updateEventLengthChart(updatedData);
+
+        // updatedData = getTotalDate(newdata, beDate, enDate);
+        // updateTotalRevchart(updatedData);
     }
 });

@@ -1,3 +1,7 @@
+.content{
+  width: 85%;
+  margin: 0 auto;
+}
 svg {
   font: 10px sans-serif;
 }
@@ -22,11 +26,14 @@ rect.pane {
   pointer-events: all;
 }
 
+rect.bar.clicked{
+  fill: #aaa;
+}
 .g_wrapper{
   clip-path:url(#clip);
 }
 body{
-  padding-top: 50px;
+  padding-top: 20px;
 }
 #total_rev_by_date_chart_wrapper svg, #totalrev_chart_wrapper svg{
   width: 70%;  
@@ -92,4 +99,8 @@ rect{
   margin: -1px 0 0 0;
   top: 100%;
   left: 0;
+}
+
+rect{
+  cursor: pointer;
 }
