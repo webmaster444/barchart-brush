@@ -183,6 +183,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         return expensesByName;
     }
 
+    // draw total rev by date chart
     function drawTotalRevChart(data){
         data = reformatData(data);
         //sort bars based on value
