@@ -142,7 +142,8 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     function brushed() {        
         x.domain(brush.empty() ? x2.domain() : brush.extent());   
         brushRange = x.domain();        
-        // Reset zoom scale's domain          
+        
+        // Refresh Sub Charts          
         refreshSubCharts(x.domain());        
     }
 
