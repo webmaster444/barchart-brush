@@ -277,7 +277,9 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis)
 
-        var bars = svg.selectAll(".bar")
+        var barWrapper = svg.append('g').attr('class','bar_wrapper');
+
+        var bars = barWrapper.selectAll(".bar")
             .data(data)
             .enter()
             .append("g")
@@ -368,8 +370,10 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         var gy = svg.select("g.y.axis").call(yAxis);
         //right y axis
         var gyRight = svg.select("g.y.rightAxis").call(yAxisRight);
-
-        var bars = svg.selectAll(".bar").data(data);
+        
+        var barWrapper = svg.select('g.bar_wrapper');       
+        var bars = barWrapper.selectAll(".bar")
+            .data(data);
 
         //append rects
         bars.enter().append('rect')
@@ -563,7 +567,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .data(data);
 
         bars.enter()
-            .append("g").attr('class','rect');
+            .append("g");
 
         //append rects
         bars.append("rect")
