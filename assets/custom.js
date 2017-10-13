@@ -256,6 +256,9 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         //right y axis
         var yAxisRight = d3.svg.axis()
             .scale(yRight)
+            .tickFormat(function(d){
+                return d + '%';
+            })
             //no tick marks
             .tickSize(0)
             .orient("right");
@@ -363,6 +366,9 @@ d3.json("data/sampledata.json", function(error, jsondata) {
        
         var yAxisRight = d3.svg.axis()
             .scale(yRight)
+            .tickFormat(function(d){
+                return d + '%';
+            })
             //no tick marks
             .tickSize(0)
             .orient("right");
