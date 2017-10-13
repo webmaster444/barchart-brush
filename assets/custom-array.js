@@ -728,7 +728,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
                 cuDate = new Date(d.date).getTime();
                 if ((cuDate >= beDate) && (cuDate <= enDate))
                 {                    
-                    for(var j in dataFilters.eventLength){   
+                    for(var j in dataFilters.eventLength){                                         
                         return d.totaldaysold == dataFilters.eventLength[j];
                     }                    
                 }    
