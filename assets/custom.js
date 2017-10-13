@@ -142,6 +142,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     function initBrush(){
         brush.extent(x2.domain());
         brushRange = x2.domain();        
+        dataFilters.brushRange = brushRange;
         svg.select('.brush').call(brush);        
     }
     function brushed() {        
@@ -209,6 +210,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         var svg = d3.select("#total_rev_by_date_chart_wrapper").append("svg")
             .attr('viewBox', '0 0 960 500')
             .append("g")
+            .attr('class','chart_wrapper')
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
         svg.call(tip);  
 
@@ -279,7 +281,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         var width = 960 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
 
-        var svg = d3.select("#total_rev_by_date_chart_wrapper svg");
+        var svg = d3.select("#total_rev_by_date_chart_wrapper svg g.chart_wrapper");
 
         var y = d3.scale.linear()
             .range([height, 0])
@@ -293,6 +295,10 @@ d3.json("data/sampledata.json", function(error, jsondata) {
                 return d.daysold;
             }));
         //make y axis to show bar names
+        var xAxis = d3.svg.axis().scale(x).tickSize(6).orient('bottom').tickFormat(function(d){return 'Day'+d;});
+
+        var gx = svg.select("g.x.axis").attr("transform", "translate(0," + height + ")").call(xAxis);
+
         var yAxis = d3.svg.axis()
             .scale(y)
             //no tick marks
@@ -304,6 +310,22 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         var bars = svg.selectAll(".bar").data(data);
 
         //append rects
+        bars.enter().append('rect')
+            .attr("class", "bar")
+            .attr("y", function(d) {
+                return y(d.totalrev);
+            })
+            .attr("height",function(d){
+                return height - y(d.totalrev)
+            })
+            .attr("x", function(d){
+                return x(d.daysold);
+            })
+            .attr("width",function(d){                
+                return x.rangeBand();
+            });
+
+        bars.exit().transition().remove();    
         bars.transition()
             .attr("class", "bar")
             .attr("y", function(d) {
@@ -405,6 +427,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         d.forEach(function(tmp_data) {
             tmp_data.date = new Date(tmp_data.date * 1000);
             tmp_data.totalrev = parseFloat(tmp_data.totalrev);
+            tmp_data.totaldaysold = parseInt(tmp_data.totaldaysold);
         });
         return d;
     }
@@ -682,15 +705,14 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             });        
     }
 
-    function updateChartData(){           
-        console.log(dataFilters);
+    function updateChartData(){                   
         beDate = dataFilters.brushRange[0];
 
         enDate = dataFilters.brushRange[1];
 
         var filteredData = jsondata;
-        if(dataFilters.programId.length > 0 ){
-            console.log('here');
+        
+        if(dataFilters.programId.length > 0 ){            
             filteredData = jsondata.filter(function(d){
                 cuDate = new Date(d.date).getTime();
                 if ((cuDate >= beDate) && (cuDate <= enDate))
@@ -700,8 +722,18 @@ d3.json("data/sampledata.json", function(error, jsondata) {
                     }                    
                 }    
             })
-        }        
-
+        }                
+        if(dataFilters.eventLength.length > 0 ){               
+            filteredData = filteredData.filter(function(d){
+                cuDate = new Date(d.date).getTime();
+                if ((cuDate >= beDate) && (cuDate <= enDate))
+                {                    
+                    for(var j in dataFilters.eventLength){                                              
+                        return d.totaldaysold == dataFilters.eventLength[j];
+                    }                    
+                }    
+            })
+        }         
         var newdata = jsondata;
         var updatedData = dataByProgramId(newdata, beDate, enDate);
         updateprogramIdChart(updatedData);
