@@ -1,4 +1,9 @@
 d3.json("data/sampledata.json", function(error, jsondata) {
+    var dataFilters = {
+        brushRange: [],
+        programId:[],
+        eventLength:[]
+    };
     var brushRange;
     var margin = {
             top: 10,
@@ -143,8 +148,10 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         x.domain(brush.empty() ? x2.domain() : brush.extent());   
         brushRange = x.domain();        
         
+        dataFilters.brushRange = brushRange;
         // Refresh Sub Charts          
-        refreshSubCharts(x.domain());        
+        // refreshSubCharts(x.domain());
+        updateChartData();        
     }
 
     function refreshSubCharts(dateRange) {
@@ -472,7 +479,16 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .attr("x", 0)
             .attr("width", function(d) {
                 return x(d.totalrev);
-            }).on('mousemove',tip.show).on('mouseout',tip.hide);
+            }).on('mousemove',tip.show).on('mouseout',tip.hide).on('mousedown', function(d){                
+                if(d3.select(this).classed('clicked')){
+                    d3.select(this).classed('clicked',false);     
+                    elementRemove(dataFilters.eventLength,d.totaldaysold);
+                }else{
+                    d3.select(this).classed('clicked',true);                     
+                    dataFilters.eventLength.push(d.totaldaysold);                         
+                }                
+                updateChartData();
+            });;
     }
 
     function updateEventLengthChart(data) {
@@ -604,17 +620,19 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .attr("x", 0)
             .attr("width", function(d) {
                 return x(d.totalrev);
-            }).on('mousemove',tip.show).on('mouseout',tip.hide).on('mousedown', function(d){
+            }).on('mousemove',tip.show).on('mouseout',tip.hide).on('mousedown', function(d){                
                 if(d3.select(this).classed('clicked')){
-                    d3.select(this).classed('clicked',false);
+                    d3.select(this).classed('clicked',false);     
+                    elementRemove(dataFilters.programId,d.program_id);
                 }else{
-                    d3.select(this).classed('clicked',true);
-                    updateChartData('program_id',d.program_id);
+                    d3.select(this).classed('clicked',true);                     
+                    dataFilters.programId.push(d.program_id);                         
                 }                
+                updateChartData();
             });
     }
 
-    function updateprogramIdChart(data) {
+    function updateprogramIdChart(data) {        
         var margin = {
             top: 15,
             right: 100,
@@ -664,26 +682,35 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             });        
     }
 
-    function updateChartData(key,value){   
+    function updateChartData(){           
+        console.log(dataFilters);
+        beDate = dataFilters.brushRange[0];
+        enDate = dataFilters.brushRange[1];
 
-        beDate = brushRange[0];
-        enDate = brushRange[1];
-
-        var newdata = jsondata.filter(function(d){
-            cuDate = new Date(d.date).getTime();
-            if ((cuDate >= beDate) && (cuDate <= enDate))
-            {
-                return d[key] == value;
-            }    
-        })
+        // if(dataFilters.programId){
+        //     console.log('here');
+        //     var newdata = jsondata.filter(function(d){
+        //         cuDate = new Date(d.date).getTime();
+        //         if ((cuDate >= beDate) && (cuDate <= enDate))
+        //         {                    
+        //             return d['program_id'] == value;
+        //         }    
+        //     })
+        // }        
 
         // var updatedData = dataByProgramId(newdata, beDate, enDate);
         // updateprogramIdChart(updatedData);
 
-        updatedData = dataByEventLength(newdata, beDate, enDate);
-        updateEventLengthChart(updatedData);
+        // updatedData = dataByEventLength(newdata, beDate, enDate);
+        // updateEventLengthChart(updatedData);
 
         // updatedData = getTotalDate(newdata, beDate, enDate);
         // updateTotalRevchart(updatedData);
+    }
+
+    //Array manipulation functions
+    function elementRemove(array,element){
+        const index = array.indexOf(element);
+        array.splice(index,1);
     }
 });
