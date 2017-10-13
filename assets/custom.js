@@ -1,8 +1,8 @@
 d3.json("data/sampledata.json", function(error, jsondata) {
     var dataFilters = {
         brushRange: [],
-        programId:[],
-        eventLength:[]
+        programId:'',
+        eventLength:''
     };
     var brushRange;
     var margin = {
@@ -505,10 +505,11 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             }).on('mousemove',tip.show).on('mouseout',tip.hide).on('mousedown', function(d){                
                 if(d3.select(this).classed('clicked')){
                     d3.select(this).classed('clicked',false);     
-                    elementRemove(dataFilters.eventLength,d.totaldaysold);
+                    dataFilters.eventLength = '';
                 }else{
+                    bars.selectAll('.bar').classed('clicked',false);
                     d3.select(this).classed('clicked',true);                     
-                    dataFilters.eventLength.push(d.totaldaysold);                         
+                    dataFilters.eventLength = d.totaldaysold;                         
                 }                
                 updateChartData();
             });;
@@ -646,10 +647,11 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             }).on('mousemove',tip.show).on('mouseout',tip.hide).on('mousedown', function(d){                
                 if(d3.select(this).classed('clicked')){
                     d3.select(this).classed('clicked',false);     
-                    elementRemove(dataFilters.programId,d.program_id);
+                    dataFilters.programId = '';                         
                 }else{
+                    bars.selectAll('.bar').classed('clicked',false);
                     d3.select(this).classed('clicked',true);                     
-                    dataFilters.programId.push(d.program_id);                         
+                    dataFilters.programId = d.program_id;                         
                 }                
                 updateChartData();
             });
@@ -710,27 +712,22 @@ d3.json("data/sampledata.json", function(error, jsondata) {
 
         enDate = dataFilters.brushRange[1];
 
-        var filteredData = jsondata;
-        console.log(jsondata);
-        if(dataFilters.programId.length > 0 ){            
+        var filteredData = jsondata;        
+        if(dataFilters.programId !='' ){            
             filteredData = jsondata.filter(function(d){
                 cuDate = new Date(d.date).getTime();
                 if ((cuDate >= beDate) && (cuDate <= enDate))
                 {                    
-                    for(var tmp_id in dataFilters.programId){
-                        return d['program_id'] == tmp_id;
-                    }                    
+                    return d['program_id'] == dataFilters.programId;                    
                 }    
             })
         }                
-        if(dataFilters.eventLength.length > 0 ){               
+        if(dataFilters.eventLength !='' ){               
             filteredData = filteredData.filter(function(d){
                 cuDate = new Date(d.date).getTime();
                 if ((cuDate >= beDate) && (cuDate <= enDate))
-                {                    
-                    for(var j in dataFilters.eventLength){   
-                        return d.totaldaysold == dataFilters.eventLength[j];
-                    }                    
+                {                                        
+                    return d.totaldaysold == dataFilters.eventLength;                 
                 }    
             })
         }         
