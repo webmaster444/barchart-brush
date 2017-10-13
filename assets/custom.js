@@ -685,27 +685,32 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     function updateChartData(){           
         console.log(dataFilters);
         beDate = dataFilters.brushRange[0];
+
         enDate = dataFilters.brushRange[1];
 
-        // if(dataFilters.programId){
-        //     console.log('here');
-        //     var newdata = jsondata.filter(function(d){
-        //         cuDate = new Date(d.date).getTime();
-        //         if ((cuDate >= beDate) && (cuDate <= enDate))
-        //         {                    
-        //             return d['program_id'] == value;
-        //         }    
-        //     })
-        // }        
+        var filteredData = jsondata;
+        if(dataFilters.programId.length > 0 ){
+            console.log('here');
+            filteredData = jsondata.filter(function(d){
+                cuDate = new Date(d.date).getTime();
+                if ((cuDate >= beDate) && (cuDate <= enDate))
+                {                    
+                    for(var tmp_id in dataFilters.programId){
+                        return d['program_id'] == tmp_id;
+                    }                    
+                }    
+            })
+        }        
 
-        // var updatedData = dataByProgramId(newdata, beDate, enDate);
-        // updateprogramIdChart(updatedData);
+        var newdata = jsondata;
+        var updatedData = dataByProgramId(newdata, beDate, enDate);
+        updateprogramIdChart(updatedData);
 
-        // updatedData = dataByEventLength(newdata, beDate, enDate);
-        // updateEventLengthChart(updatedData);
+        updatedData = dataByEventLength(newdata, beDate, enDate);
+        updateEventLengthChart(updatedData);
 
-        // updatedData = getTotalDate(newdata, beDate, enDate);
-        // updateTotalRevchart(updatedData);
+        updatedData = getTotalDate(filteredData, beDate, enDate);
+        updateTotalRevchart(updatedData);
     }
 
     //Array manipulation functions
