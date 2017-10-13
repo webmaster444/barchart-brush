@@ -303,6 +303,8 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         
         svg.append("path")
             .datum(data)
+            .transition()
+            .attr('class','revperc_line')
             .attr("fill", "none")
             .attr("stroke", "#ff7f00")
             .attr("stroke-linejoin", "round")
@@ -324,7 +326,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             height = 500 - margin.top - margin.bottom;
 
         var svg = d3.select("#total_rev_by_date_chart_wrapper svg g.chart_wrapper");
-
+        //right y axis
         var y = d3.scale.linear()
             .range([height, 0])
             .domain([0, d3.max(data, function(d) {                
@@ -336,6 +338,16 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .domain(data.map(function(d) {
                 return d.daysold;
             }));
+
+        var yRight = d3.scale.linear()
+            .range([height, 0])
+            .domain([0, d3.max(data, function(d) {                
+                return d.revperc;
+            })]);
+
+        var line = d3.svg.line()
+            .x(function(d) { return x(d.daysold) + x.rangeBand()/2; })
+            .y(function(d) { return yRight(d.revperc); });
         //make y axis to show bar names
         var xAxis = d3.svg.axis().scale(x).tickSize(6).orient('bottom').tickFormat(function(d){return 'Day'+d;});
 
@@ -346,8 +358,16 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             //no tick marks
             .tickSize(0)
             .orient("left");        
+       
+        var yAxisRight = d3.svg.axis()
+            .scale(yRight)
+            //no tick marks
+            .tickSize(0)
+            .orient("right");
 
         var gy = svg.select("g.y.axis").call(yAxis);
+        //right y axis
+        var gyRight = svg.select("g.y.rightAxis").call(yAxisRight);
 
         var bars = svg.selectAll(".bar").data(data);
 
@@ -382,6 +402,17 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .attr("width",function(d){                
                 return x.rangeBand();
             });
+
+
+        svg.select(".revperc_line")
+            .datum(data)
+            .transition()
+            .attr("fill", "none")
+            .attr("stroke", "#ff7f00")
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+            .attr("stroke-width", 3)
+            .attr("d", line);
     }
 
     function drawChart(data) {
@@ -532,7 +563,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .data(data);
 
         bars.enter()
-            .append("g");
+            .append("g").attr('class','rect');
 
         //append rects
         bars.append("rect")
