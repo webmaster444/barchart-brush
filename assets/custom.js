@@ -135,7 +135,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     data3 = reformatData(data3);
     programIdChart(data3);
 
-    var data4 = getTotalDate(jsondata);
+    var data4 = getTotalDate(jsondata);    
     drawTotalRevChart(data4);
 
     initBrush();
@@ -175,17 +175,27 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         var expensesByName = d3.nest().key(function(d) {
             return d.daysold;
         }).rollup(function(v) {
-            return d3.sum(v, function(d) {
-                cuDate = new Date(d.date).getTime();
-                if ((cuDate >= beDate) && (cuDate <= enDate))
-                    return d.totalrev;
-                if (beDate == undefined && enDate == undefined)
-                    return d.totalrev;
-            }).toFixed(2);
+            return{
+                totalrev:d3.sum(v, function(d) {
+                        cuDate = new Date(d.date).getTime();
+                        if ((cuDate >= beDate) && (cuDate <= enDate))
+                            return d.totalrev;
+                        if (beDate == undefined && enDate == undefined)
+                            return d.totalrev;
+                    }).toFixed(2),
+                revperc: d3.sum(v, function(d) {
+                        cuDate = new Date(d.date).getTime();
+                        if ((cuDate >= beDate) && (cuDate <= enDate))
+                            return d.revperc;
+                        if (beDate == undefined && enDate == undefined)
+                            return d.revperc;
+                    }).toFixed(2),
+            } 
         }).entries(jsondata).map(function(group) {
             return {
                 daysold: group.key,
-                totalrev: group.values
+                totalrev: group.values.totalrev,
+                revperc: group.values.revperc
             }
         });;
         return expensesByName;
