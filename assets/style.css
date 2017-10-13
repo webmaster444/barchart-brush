@@ -6,6 +6,7 @@ svg {
   font: 10px sans-serif;
 }
 
+.rightAxis path,
 .axis path,
 .axis line {
   fill: none;

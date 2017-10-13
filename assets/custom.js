@@ -229,25 +229,48 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             .domain([0, d3.max(data, function(d) {                
                 return d.totalrev;
             })]);
-            
+
         var x = d3.scale.ordinal()
             .rangeRoundBands([0, width], .1)
             .domain(data.map(function(d) {
                 return d.daysold;
             }));
 
+        //Revperc line chart y axis
+        var yRight = d3.scale.linear()
+            .range([height, 0])
+            .domain([0, d3.max(data, function(d) {                
+                return d.revperc;
+            })]);
+
+        var line = d3.svg.line()
+            .x(function(d) { return x(d.daysold) + x.rangeBand()/2; })
+            .y(function(d) { return yRight(d.revperc); });
         //make y axis to show bar names
         var yAxis = d3.svg.axis()
             .scale(y)
             //no tick marks
             .tickSize(0)
             .orient("left");
+        
+        //right y axis
+        var yAxisRight = d3.svg.axis()
+            .scale(yRight)
+            //no tick marks
+            .tickSize(0)
+            .orient("right");
 
         var xAxis = d3.svg.axis().scale(x).tickSize(6).orient('bottom').tickFormat(function(d){return 'Day'+d;});
 
         var gy = svg.append("g")
             .attr("class", "y axis")
             .call(yAxis)
+
+        //right y axis
+        var gyRight = svg.append("g")
+                    .attr("class", "y rightAxis")
+                    .attr("transform", "translate("+parseInt(width - 1) + ",0 )")
+                    .call(yAxisRight);
 
         var gx = svg.append("g")
             .attr("class", "x axis")
@@ -277,6 +300,15 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             })
             .on("mouseover", tip.show)
             .on("mouseout", tip.hide);
+        
+        svg.append("path")
+            .datum(data)
+            .attr("fill", "none")
+            .attr("stroke", "#ff7f00")
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+            .attr("stroke-width", 3)
+            .attr("d", line);
     }
     function updateTotalRevchart(data) {
         data = reformatData(data);        
