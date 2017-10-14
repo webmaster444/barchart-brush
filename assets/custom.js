@@ -154,21 +154,6 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         updateChartData();        
     }
 
-    function refreshSubCharts(dateRange) {
-        // beDate = new Date(dateRange[0]).getTime();
-        // enDate = new Date(dateRange[1]).getTime();
-
-        // // Update 3 Charts based on brush range
-        // var updatedData = dataByProgramId(jsondata, beDate, enDate);
-        // updateprogramIdChart(updatedData);
-
-        // updatedData = dataByEventLength(jsondata, beDate, enDate);
-        // updateEventLengthChart(updatedData);
-
-        // updatedData = getTotalDate(jsondata, beDate, enDate);
-        // updateTotalRevchart(updatedData);
-    }
-
     //get all data by date
     function getTotalDate(jsondata, beDate, enDate) {
         var expensesByName = d3.nest().key(function(d) {
