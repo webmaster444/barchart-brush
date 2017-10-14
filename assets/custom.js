@@ -492,19 +492,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             }
         });
         return expensesByName;
-    }
-
-    function draw() {
-        console.log('draw');
-        // redraw function  
-        focus.select(".x.axis").call(xAxis);
-        // Force changing brush range
-        brush.extent(x.domain());
-
-        svg.select(".brush").call(brush);
-        drawChart(data);
-        refreshSubCharts(x.domain());
-    }
+    }    
 
     function reformatData(d) {
         d.forEach(function(tmp_data) {
