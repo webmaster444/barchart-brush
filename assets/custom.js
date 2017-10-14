@@ -40,8 +40,8 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         .attr("class", "context")
         .attr("transform", "translate(" + margin2.left + "," + margin.top + ")");
 
-    // var zoom = d3.behavior.zoom()
-    //     .on("zoom", draw);
+    var zoom = d3.behavior.zoom()
+        .on("zoom", draw);
 
     var tip = d3.tip()
       .attr('class', 'd3-tip')
@@ -207,7 +207,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
 
         //set up svg using margin conventions - we'll need plenty of room on the left for labels
         var margin = {
-            top: 15,
+            top: 40,
             right: 120,
             bottom: 30,
             left: 60
@@ -239,7 +239,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         var yRight = d3.scale.linear()
             .range([height, 0])
             .domain([0, d3.max(data, function(d) {                
-                return d.revperc;
+                return parseFloat(d.revperc)+1;
             })]);
 
         var line = d3.svg.line()
@@ -320,7 +320,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         data = reformatData(data);        
         //set up svg using margin conventions - we'll need plenty of room on the left for labels
         var margin = {
-            top: 15,
+            top: 40,
             right: 120,
             bottom: 30,
             left: 60
@@ -345,10 +345,13 @@ d3.json("data/sampledata.json", function(error, jsondata) {
 
         var yRight = d3.scale.linear()
             .range([height, 0])
-            .domain([0, d3.max(data, function(d) {                
-                return d.revperc;
+            .domain([0, d3.max(data, function(d) {                 
+                return parseFloat(d.revperc)+1;
             })]);
 
+        console.log(d3.max(data, function(d){
+                return d.revperc;
+            }));
         var line = d3.svg.line()
             .x(function(d) { return x(d.daysold) + x.rangeBand()/2; })
             .y(function(d) { return yRight(d.revperc); });
@@ -495,14 +498,14 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     }
 
     function draw() {        
-        // // redraw function  
-        // focus.select(".x.axis").call(xAxis);
-        // // Force changing brush range
-        // brush.extent(x.domain());
+        // redraw function  
+        focus.select(".x.axis").call(xAxis);
+        // Force changing brush range
+        brush.extent(x.domain());
 
-        // svg.select(".brush").call(brush);
-        // drawChart(data);
-        // refreshSubCharts(x.domain());
+        svg.select(".brush").call(brush);
+        drawChart(data);
+        refreshSubCharts(x.domain());
     }
 
     function reformatData(d) {
