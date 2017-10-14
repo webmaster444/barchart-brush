@@ -495,6 +495,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     }
 
     function draw() {
+        console.log('draw');
         // redraw function  
         focus.select(".x.axis").call(xAxis);
         // Force changing brush range
