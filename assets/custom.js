@@ -102,26 +102,26 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     //Custom brush 
     var brush_content = svg.selectAll('g.resize.e');
 
-        brush_content.append('circle')
-            .attr("transform", function(d) { return "translate(0,20 )"; })
-            .attr("fill","black")
-            .attr("r", 12);
+    brush_content.append('circle')
+        .attr("transform", function(d) { return "translate(0,20 )"; })
+        .attr("fill","black")
+        .attr("r", 12);
 
-        brush_content.append('circle')
-            .attr("transform", function(d) { return "translate(0,20 )"; })
-            .attr("fill","white")
-            .attr("r", 3.5);
+    brush_content.append('circle')
+        .attr("transform", function(d) { return "translate(0,20 )"; })
+        .attr("fill","white")
+        .attr("r", 3.5);
 
-        brush_content = svg.selectAll('g.resize.w');
-        
-        brush_content.append('circle')
-            .attr("transform", function(d) { return "translate(0,20 )"; })
-            .attr("fill","black")
-            .attr("r", 12);        
-        brush_content.append('circle')
-            .attr("transform", function(d) { return "translate(0,20 )"; })
-            .attr("fill","white")
-            .attr("r", 3.5);
+    brush_content = svg.selectAll('g.resize.w');
+    
+    brush_content.append('circle')
+        .attr("transform", function(d) { return "translate(0,20 )"; })
+        .attr("fill","black")
+        .attr("r", 12);        
+    brush_content.append('circle')
+        .attr("transform", function(d) { return "translate(0,20 )"; })
+        .attr("fill","white")
+        .attr("r", 3.5);
 
     //Draw Event Length Chart 
     var data2 = dataByEventLength(jsondata);
@@ -144,8 +144,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     }
     function brushed() {        
         x.domain(brush.empty() ? x2.domain() : brush.extent());   
-        brushRange = x.domain();        
-        
+        brushRange = x.domain();                
         dataFilters.brushRange = brushRange;    
         updateChartData();        
     }
