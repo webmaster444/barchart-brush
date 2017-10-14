@@ -155,18 +155,18 @@ d3.json("data/sampledata.json", function(error, jsondata) {
     }
 
     function refreshSubCharts(dateRange) {
-        beDate = new Date(dateRange[0]).getTime();
-        enDate = new Date(dateRange[1]).getTime();
+        // beDate = new Date(dateRange[0]).getTime();
+        // enDate = new Date(dateRange[1]).getTime();
 
-        // Update 3 Charts based on brush range
-        var updatedData = dataByProgramId(jsondata, beDate, enDate);
-        updateprogramIdChart(updatedData);
+        // // Update 3 Charts based on brush range
+        // var updatedData = dataByProgramId(jsondata, beDate, enDate);
+        // updateprogramIdChart(updatedData);
 
-        updatedData = dataByEventLength(jsondata, beDate, enDate);
-        updateEventLengthChart(updatedData);
+        // updatedData = dataByEventLength(jsondata, beDate, enDate);
+        // updateEventLengthChart(updatedData);
 
-        updatedData = getTotalDate(jsondata, beDate, enDate);
-        updateTotalRevchart(updatedData);
+        // updatedData = getTotalDate(jsondata, beDate, enDate);
+        // updateTotalRevchart(updatedData);
     }
 
     //get all data by date
