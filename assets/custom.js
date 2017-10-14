@@ -150,8 +150,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         brushRange = x.domain();        
         
         dataFilters.brushRange = brushRange;
-        // Refresh Sub Charts          
-        // refreshSubCharts(x.domain());
+        // Refresh Sub Charts                  
         updateChartData();        
     }
 
