@@ -40,9 +40,6 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         .attr("class", "context")
         .attr("transform", "translate(" + margin2.left + "," + margin.top + ")");
 
-    var zoom = d3.behavior.zoom()
-        .on("zoom", draw);
-
     var tip = d3.tip()
       .attr('class', 'd3-tip')
       .offset([-10, 0])
