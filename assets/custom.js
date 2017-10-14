@@ -149,8 +149,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         x.domain(brush.empty() ? x2.domain() : brush.extent());   
         brushRange = x.domain();        
         
-        dataFilters.brushRange = brushRange;
-        // Refresh Sub Charts                  
+        dataFilters.brushRange = brushRange;    
         updateChartData();        
     }
 
@@ -480,17 +479,6 @@ d3.json("data/sampledata.json", function(error, jsondata) {
             }
         });
         return expensesByName;
-    }
-
-    function draw() {        
-        // redraw function  
-        // focus.select(".x.axis").call(xAxis);
-        // // Force changing brush range
-        // brush.extent(x.domain());
-
-        // svg.select(".brush").call(brush);
-        // drawChart(data);
-        // refreshSubCharts(x.domain());
     }
 
     function reformatData(d) {
