@@ -151,6 +151,16 @@ d3.json("data/sampledata.json", function(error, jsondata) {
 
     //get all data by date
     function getTotalDate(jsondata, beDate, enDate) {
+        var getTotalEventCnt = d3.nest().key(function(d){
+            return d.date;
+        }).rollup(function(v){
+            eventcnt:v.map(function(d) {                                            
+                cuDate = new Date(d.date).getTime();
+                if ((cuDate >= beDate) && (cuDate <= enDate))
+                    return d.date;
+            })
+        });
+        console.log(getTotalEventCnt);
         var expensesByName = d3.nest().key(function(d) {
             return d.daysold;
         }).rollup(function(v) {
@@ -162,11 +172,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
                         if (beDate == undefined && enDate == undefined)
                             return d.totalrev;
                     }).toFixed(2),
-                eventcnt:v.map(function(d) {                                            
-                        cuDate = new Date(d.date).getTime();
-                        if ((cuDate >= beDate) && (cuDate <= enDate))
-                            return d.date;
-                    }),
+
                 revperc: d3.sum(v, function(d) {
                         cuDate = new Date(d.date).getTime();
                         if ((cuDate >= beDate) && (cuDate <= enDate))
@@ -175,11 +181,14 @@ d3.json("data/sampledata.json", function(error, jsondata) {
                             return d.revperc;
                     }).toFixed(2),
             } 
-        }).entries(jsondata).map(function(group) {               
+        }).entries(jsondata).map(function(group) { 
+        //     console.log(group.values.eventcnt.length);
+        // console.log(parseFloat(group.values.revperc)/group.values.eventcnt.length * 100);
             return {
                 daysold: group.key,
                 totalrev: group.values.totalrev,
-                revperc: parseFloat(group.values.revperc)/group.values.eventcnt.length * 100
+                revperc: group.values.revperc
+                // revperc: parseFloat(group.values.revperc)/group.values.eventcnt.length * 100
             }
         });;
         return expensesByName;
