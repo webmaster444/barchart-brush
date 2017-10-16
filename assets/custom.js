@@ -162,11 +162,11 @@ d3.json("data/sampledata.json", function(error, jsondata) {
                         if (beDate == undefined && enDate == undefined)
                             return d.totalrev;
                     }).toFixed(2),
-                eventcnt:function(d) {
+                eventcnt:v.map(function(d) {                                            
                         cuDate = new Date(d.date).getTime();
                         if ((cuDate >= beDate) && (cuDate <= enDate))
                             return d.date;
-                    },
+                    }),
                 revperc: d3.sum(v, function(d) {
                         cuDate = new Date(d.date).getTime();
                         if ((cuDate >= beDate) && (cuDate <= enDate))
@@ -175,12 +175,11 @@ d3.json("data/sampledata.json", function(error, jsondata) {
                             return d.revperc;
                     }).toFixed(2),
             } 
-        }).entries(jsondata).map(function(group) {
-            console.log(group.values.eventcnt);
+        }).entries(jsondata).map(function(group) {               
             return {
                 daysold: group.key,
                 totalrev: group.values.totalrev,
-                revperc: group.values.revperc
+                revperc: parseFloat(group.values.revperc)/group.values.eventcnt.length * 100
             }
         });;
         return expensesByName;
@@ -225,7 +224,7 @@ d3.json("data/sampledata.json", function(error, jsondata) {
         var yRight = d3.scale.linear()
             .range([height, 0])
             .domain([0, d3.max(data, function(d) {                
-                return parseFloat(d.revperc)+1;
+                return parseFloat(d.revperc);
             })]);
 
         var line = d3.svg.line()
